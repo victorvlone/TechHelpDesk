@@ -40,9 +40,9 @@ function Table() {
           </colgroup>
           <tbody>
             <tr>
-              <td>Dado 1</td>
-              <td>Dado 2</td>
-              <td>Dado 3</td>
+              <td>311</td>
+              <td>Lucas</td>
+              <td>Sistema trava ao salvar formulário</td>
               <td>
                 Toda vez que tento salvar um novo registro no sistema de
                 atendimento, a tela congela por alguns segundos e exibe uma...
