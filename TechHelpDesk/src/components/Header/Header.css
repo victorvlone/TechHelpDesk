@@ -1,6 +1,6 @@
 .header-container {
   height: 90px;
-  width: 100%;
+  width: 100vw;
   background-color: white;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
   display: flex;
@@ -16,7 +16,7 @@
 .logo-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
   cursor: pointer;
 }
 .list-icon {
@@ -24,11 +24,7 @@
 }
 .logo {
   width: 70px;
-  transition: width 0.2s ease;
   cursor: pointer;
-}
-.logo:hover {
-  width: 80px;
 }
 .search {
   display: flex;
@@ -49,6 +45,7 @@
   color: white;
   font-weight: 600;
   cursor: pointer;
+  font-size: 15px;
 }
 i {
   display: flex;

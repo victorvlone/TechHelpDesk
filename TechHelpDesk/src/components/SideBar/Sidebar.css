@@ -5,7 +5,14 @@
   position: absolute;
   left: 0;
   top: 0;
+  overflow: hidden;
+  transform: translateX(-100%);
   box-shadow: 4px 0 7px rgba(0, 0, 0, 0.08);
+  transition: transform 0.5s ease;
+}
+.sidebar-container.show {
+  transform: translateX(0);
+  opacity: 1;
 }
 .sidebar-header {
   display: flex;
@@ -14,8 +21,17 @@
   width: 100%;
   justify-content: space-between;
 }
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+}
 .sidebar-header img {
   width: 70px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+.sidebar-header-data {
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  text-align: end;
 }
 .sidebar-nav {
   display: flex;
@@ -35,16 +51,21 @@
   font-size: 22px;
   font-weight: 600;
 }
-.categoria-options,
-.situacao-options,
-.prioridade-options {
+.sidebar-options {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, max-height 0.5s ease;
 }
-.categoria-options li,
-.situacao-options li,
-.prioridade-options li {
+.sidebar-options.show {
+  opacity: 1;
+  max-height: 200px;
+  pointer-events: all;
+}
+.sidebar-options li {
   font-size: 18px;
   padding-left: 15px;
   font-weight: 500;
@@ -52,8 +73,15 @@
   transition: padding-left 0.2s ease;
 }
 
-.categoria-options li:hover,
-.situacao-options li:hover,
-.prioridade-options li:hover {
+.sidebar-options li:hover {
   padding-left: 20px;
+}
+.option-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.option-container i {
+  font-size: 10px;
 }
