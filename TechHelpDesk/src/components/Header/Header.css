@@ -41,7 +41,7 @@
   border-radius: 30px;
   position: absolute;
   border: 1px solid white;
-  background-color: #6eb5e0;
+  background: linear-gradient(to top, #5e96bb, var(--azul));
   color: white;
   font-weight: 600;
   cursor: pointer;

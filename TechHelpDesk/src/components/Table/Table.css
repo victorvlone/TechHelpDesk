@@ -26,7 +26,7 @@ table {
 }
 th {
   padding: 20px;
-  background-color: var(--azul);
+  background: linear-gradient(to top, #5e96bb, var(--azul));
   overflow: hidden;
   color: white;
   font-size: 20px;
@@ -44,8 +44,9 @@ th {
   width: 150px;
 }
 .col-conclusao {
-  width: max-content;
+  width: 130px;
 }
+.col-c
 th,
 tr {
   height: 80px;
@@ -65,7 +66,7 @@ tr:hover {
   border-radius: 10px;
 }
 tr:hover td {
-  border: none;
+  border-color: transparent;
 }
 td:nth-child(1),
 td:nth-child(2) {
@@ -77,4 +78,11 @@ td:nth-child(3){
 td:nth-child(4) {
   text-align: left;
   font-size: 14px;
+}
+td:nth-child(6){
+  font-size: 16px;
+  padding: 0;
+}
+td:nth-child(9){
+  text-overflow: ellipsis;
 }
