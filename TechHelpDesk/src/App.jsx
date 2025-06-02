@@ -7,14 +7,14 @@ import ChamadoSleecionado from "./components/ChamadoSelecionado/ChamadoSeleciona
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
+  
   return (
     <>
       <Header setShowSidebar={setShowSidebar} />
       <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-      <div className="tecnico-content">
-
-      <ChamadoSleecionado />
-      <Table />
+      <div className={`tecnico-content container ${showSidebar ? "left" : ""}`}>
+        <ChamadoSleecionado />
+        <Table />
       </div>
     </>
   );
