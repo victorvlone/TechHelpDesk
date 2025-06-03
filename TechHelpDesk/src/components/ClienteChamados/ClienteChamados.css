@@ -1,0 +1,61 @@
+.clienteChamados-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+  gap: 10px;
+}
+.clienteChamados-header {
+  display: flex;
+  gap: 10px;
+  font-weight: 600;
+  width: 100%;
+}
+.clienteChamados-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fafafa;
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  gap: 10px;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.clienteChamados-content-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+.clienteChamados-content-header h5 {
+  font-size: 17px;
+}
+.clienteChamados-content-body {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  max-height: 0;
+  transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+.clienteChamados-content-body.show {
+  max-height: 700px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.clienteChamados-content-data {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.clienteChamados-content-data p {
+  font-size: 14px;
+}
