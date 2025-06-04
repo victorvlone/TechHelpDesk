@@ -12,6 +12,9 @@
   font-weight: 600;
   width: 100%;
 }
+.add-icon {
+  cursor: pointer;
+}
 .clienteChamados-content {
   display: flex;
   align-items: center;

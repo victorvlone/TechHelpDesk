@@ -1,0 +1,83 @@
+.novoChamado-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: linear-gradient(to top, #fafafa, #ffffff);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.novoChamado-container.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  visibility: visible;
+}
+.novoChamado-container img {
+  width: 80px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+.close-icon {
+  position: absolute;
+  right: 0;
+  background: linear-gradient(to top, #5e96bb, var(--azul));
+  color: white;
+  top: 0;
+  padding: 10px;
+  border-radius: 0 10px 0 10px;
+  cursor: pointer;
+}
+.novoChamado-input {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+}
+.novoChamado-input input,
+.novoChamado-container button {
+  height: 40px;
+}
+.novoChamado-input textarea {
+  height: 100px;
+  resize: none;
+}
+.novoChamado-container button {
+  background: linear-gradient(to top, #5e96bb, var(--azul));
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  width: 100%;
+}
+.novoChamado-input textarea {
+  padding: 10px;
+}
+
+.novoChamado-input input,
+.novoChamado-input select,
+.novoChamado-input textarea {
+  width: 400px;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  outline: none;
+  padding-left: 20px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}
+
+.novoChamado-input select {
+  height: 40px;
+  border: 2px solid var(--azul);
+  cursor: pointer;
+  color: #5e96bb;
+  font-weight: 600;
+}

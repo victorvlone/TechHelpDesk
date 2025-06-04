@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./ClienteChamados.css";
 
-function ClienteChamados() {
+function ClienteChamados({ setShowNovoChamado }) {
   const chamados = [
     { id: 1, titulo: "Computador não liga", status: "Em aberto" },
     { id: 2, titulo: "Impressora travando", status: "Resolvido" },
@@ -23,7 +23,10 @@ function ClienteChamados() {
     <div className="clienteChamados-container">
       <div className="clienteChamados-header">
         <p>Chamados</p>
-        <i className="fi fi-br-add"></i>
+        <i
+          className="fi fi-br-add add-icon"
+          onClick={() => setShowNovoChamado(true)}
+        ></i>
       </div>
 
       {chamados.map((chamado) => (

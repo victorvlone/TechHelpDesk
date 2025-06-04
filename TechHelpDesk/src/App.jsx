@@ -5,20 +5,22 @@ import Sidebar from "./components/SideBar/Sidebar";
 import Table from "./components/Table/Table";
 import ChamadoSleecionado from "./components/ChamadoSelecionado/ChamadoSelecionado";
 import ClienteChamados from "./components/ClienteChamados/ClienteChamados";
+import NovoChamado from "./components/NovoChamado/NovoChamado";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [showChamadosBody, setShowChamadosBody] = useState(false);
+  const [showNovoChamado, setShowNovoChamado] = useState(false);
 
   return (
     <>
       <Header setShowSidebar={setShowSidebar} />
       <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       <div className={`tecnico-content container ${showSidebar ? "left" : ""}`}>
-        <ClienteChamados
-          showChamadosBody={showChamadosBody}
-          setShowChamadosBody={setShowChamadosBody}
+        <NovoChamado
+          showNovoChamado={showNovoChamado}
+          setShowNovoChamado={setShowNovoChamado}
         />
+        <ClienteChamados setShowNovoChamado={setShowNovoChamado} />
         <ChamadoSleecionado />
         <Table />
       </div>
