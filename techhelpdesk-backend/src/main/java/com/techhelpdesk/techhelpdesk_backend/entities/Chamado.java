@@ -24,7 +24,7 @@ import lombok.Setter;
 public class Chamado {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @Column(name= "titulo", length=100, nullable=false)
