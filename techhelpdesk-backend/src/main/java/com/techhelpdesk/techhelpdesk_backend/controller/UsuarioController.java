@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,16 +25,6 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
-
-    @PostMapping
-    public ResponseEntity<?> criarUsuario(@RequestBody Usuario usuario) {
-        try {
-            Usuario novoUsuario = usuarioService.criarUsuario(usuario);
-            return ResponseEntity.ok(novoUsuario);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Erro ao salvar novo Usuario");
-        }
-    }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> editarUsuario(@PathVariable UUID id, @RequestBody Usuario usuario) {
