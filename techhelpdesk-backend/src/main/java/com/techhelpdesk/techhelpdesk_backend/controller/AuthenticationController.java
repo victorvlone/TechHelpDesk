@@ -17,11 +17,14 @@ import com.techhelpdesk.techhelpdesk_backend.repository.UsuarioRepository;
 import com.techhelpdesk.techhelpdesk_backend.service.TokenService;
 
 import lombok.var;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
 @RestController
 @RequestMapping("auth")
+@CrossOrigin("*")
 public class AuthenticationController {
 
     @Autowired

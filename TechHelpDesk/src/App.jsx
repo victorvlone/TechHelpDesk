@@ -6,6 +6,7 @@ import Table from "./components/Table/Table";
 import ChamadoSleecionado from "./components/ChamadoSelecionado/ChamadoSelecionado";
 import ClienteChamados from "./components/ClienteChamados/ClienteChamados";
 import NovoChamado from "./components/NovoChamado/NovoChamado";
+import AuthComponent from "./components/AuthComponent/AuthComponent";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -15,6 +16,7 @@ function App() {
     <>
       <Header setShowSidebar={setShowSidebar} />
       <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+      <AuthComponent />
       <div className={`tecnico-content container ${showSidebar ? "left" : ""}`}>
         <NovoChamado
           showNovoChamado={showNovoChamado}
