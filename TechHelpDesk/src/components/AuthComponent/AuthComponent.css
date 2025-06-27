@@ -22,6 +22,22 @@
   align-items: center;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
+.register-container, .login-container {
+  width: 100%;
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  max-height: 0;
+  align-items: center;
+  flex-direction: column;
+  transition: opacity 0.2s ease, visibility 0.2s ease, max-height 0.2s ease;
+  gap: 14px;
+}
+.show {
+  opacity: 1;
+  visibility: visible;
+  max-height: 500px;
+}
 .auth-input-container {
   display: flex;
   flex-direction: column;

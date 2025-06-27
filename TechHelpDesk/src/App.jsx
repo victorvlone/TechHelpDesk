@@ -11,20 +11,38 @@ import AuthComponent from "./components/AuthComponent/AuthComponent";
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showNovoChamado, setShowNovoChamado] = useState(false);
+  const [usuarioLogado, setUsuarioLogado] = useState(null);
 
+  if (!usuarioLogado) {
+    return (
+      <AuthComponent
+        usuarioLogado={usuarioLogado}
+        setUsuarioLogado={setUsuarioLogado}
+      />
+    );
+  }
+
+  console.log("Usuário logado no App.jsx:", usuarioLogado);
   return (
     <>
       <Header setShowSidebar={setShowSidebar} />
       <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-      <AuthComponent />
       <div className={`tecnico-content container ${showSidebar ? "left" : ""}`}>
-        <NovoChamado
-          showNovoChamado={showNovoChamado}
-          setShowNovoChamado={setShowNovoChamado}
-        />
-        <ClienteChamados setShowNovoChamado={setShowNovoChamado} />
-        <ChamadoSleecionado />
-        <Table />
+        {usuarioLogado.tipo === "TÉCNICO" && (
+          <>
+            <Table />
+            <ChamadoSleecionado />
+          </>
+        )}
+        {usuarioLogado.tipo === "CLIENTE" && (
+          <>
+            <NovoChamado
+              showNovoChamado={showNovoChamado}
+              setShowNovoChamado={setShowNovoChamado}
+            />
+            <ClienteChamados setShowNovoChamado={setShowNovoChamado} />
+          </>
+        )}
       </div>
     </>
   );

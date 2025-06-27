@@ -1,5 +1,7 @@
 package com.techhelpdesk.techhelpdesk_backend.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +23,6 @@ import lombok.var;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 @RestController
 @RequestMapping("auth")
 @CrossOrigin("*")
@@ -37,25 +38,28 @@ public class AuthenticationController {
     TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthenticationDTO data){
+    public ResponseEntity<?> login(@RequestBody AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.senha());
         var auth = authenticationManager.authenticate(usernamePassword);
 
+        var usuario = (Usuario) auth.getPrincipal();
         var token = tokenService.generateToken((Usuario) auth.getPrincipal());
-
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+ return ResponseEntity.ok(new LoginResponseDTO(token, usuario.getTipodeUsuario().name()));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterDTO data){
-        if(this.usuarioRepository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
+    public ResponseEntity<?> register(@RequestBody RegisterDTO data) {
+        if (this.usuarioRepository.findByEmail(data.email()) != null)
+            return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
-        Usuario novoUsuario = new Usuario(data.primeiroNome(), data.ultimoNome(), data.email(), encryptedPassword, data.tipoDeUsuario());
+        Usuario novoUsuario = new Usuario(data.primeiroNome(), data.ultimoNome(), data.email(), encryptedPassword,
+                data.tipoDeUsuario());
 
         this.usuarioRepository.save(novoUsuario);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(Map.of("success", true, "message", "Usuário cadastrado com sucesso"));
+
     }
 
 }

@@ -9,7 +9,6 @@
   transform: translateX(-100%);
   box-shadow: 4px 0 7px rgba(0, 0, 0, 0.08);
   transition: transform 0.5s ease;
-  display: none;
 }
 .sidebar-container.show {
   transform: translateX(0);
