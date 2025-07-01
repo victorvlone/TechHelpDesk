@@ -36,7 +36,7 @@ public class Chamado {
     @Column(name= "dataCriacao", nullable=false)
     private LocalDateTime dataCriacao;
 
-    @Column(name= "dataConclusao", nullable=false)
+    @Column(name= "dataConclusao")
     private LocalDateTime dataConclusao;
 
     @Enumerated(EnumType.STRING)
@@ -50,4 +50,14 @@ public class Chamado {
     @Enumerated(EnumType.STRING)
     @Column(name= "categoria", nullable=false)
     private Categoria categoria;
+
+    public Chamado(String titulo, String descricao, LocalDateTime dataCriacao, Prioridade prioridade,
+            Status status, Categoria categoria) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.dataCriacao = dataCriacao;
+        this.prioridade = prioridade;
+        this.status = status;
+        this.categoria = categoria;
+    }
 }

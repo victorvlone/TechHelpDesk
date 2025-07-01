@@ -12,23 +12,24 @@ public class ChamadoService {
     @Autowired
     private ChamadoRepository chamadoRepository;
 
-    public Chamado novoChamado(Chamado chamado){
+    public Chamado novoChamado(Chamado chamado) {
+        System.out.println("Salvando chamado: " + chamado);
         return chamadoRepository.save(chamado);
     }
 
-    public Chamado atualizarChamado(Chamado chamado){
-        if(chamadoRepository.existsById(chamado.getId())){
+    public Chamado atualizarChamado(Chamado chamado) {
+        if (chamadoRepository.existsById(chamado.getId())) {
             return chamadoRepository.save(chamado);
-        }else{
+        } else {
             throw new RuntimeException("Chamado não encontrado");
         }
     }
 
-    public Boolean removerUsuario(Long id){
-        if(chamadoRepository.existsById(id)){
+    public Boolean removerUsuario(Long id) {
+        if (chamadoRepository.existsById(id)) {
             chamadoRepository.deleteById(id);
             return true;
-        } else{
+        } else {
             return false;
         }
     }

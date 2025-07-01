@@ -1,16 +1,62 @@
+import { useState } from "react";
 import "./NovoChamado.css";
 
 function NovoChamado({ showNovoChamado, setShowNovoChamado }) {
+  const [titulo, setTitulo] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [prioridade, setPrioridade] = useState("BAIXA");
+  const [categoria, setCategoria] = useState("SOFTWARE");
+  const [status, setStatus] = useState("EM_ABERTO");
+
+  const criarChamado = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:8080/chamados/novo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("usuario")).token
+        }`,
+      },
+      body: JSON.stringify({
+        titulo,
+        descricao,
+        prioridade,
+        categoria,
+        status,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao criar chamado: " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Chamado adicionado:", data);
+        setShowNovoChamado(false);
+      })
+      .catch((error) => {
+        console.error("Erro ao adicionar chamado:", error);
+      });
+  };
+
   return (
     <div className={`novoChamado-container ${showNovoChamado ? "show" : ""}`}>
       <img src="/assets/images/logo.png" alt="" />
       <i
-        class="fi fi-bs-cross close-icon"
+        className="fi fi-bs-cross close-icon"
         onClick={() => setShowNovoChamado(false)}
       ></i>
       <div className="novoChamado-input">
         <label htmlFor="">Titulo:</label>
-        <input type="text" placeholder="Titulo" />
+        <input
+          type="text"
+          placeholder="Titulo"
+          value={titulo}
+          onChange={(e) => setTitulo(e.target.value)}
+          required
+        />
       </div>
       <div className="novoChamado-input">
         <label htmlFor="">Descrição:</label>
@@ -19,24 +65,39 @@ function NovoChamado({ showNovoChamado, setShowNovoChamado }) {
           cols={40}
           maxLength={500}
           placeholder="Descreva seu problema"
+          value={descricao}
+          onChange={(e) => setDescricao(e.target.value)}
+          required
         />
       </div>
       <div className="novoChamado-input">
         <label htmlFor="">Prioridade:</label>
-        <select name="prioridade" id="">
-          <option value="">Baixa</option>
-          <option value="">Média</option>
-          <option value="">Alta</option>
+        <select
+          name="prioridade"
+          value={prioridade}
+          onChange={(e) => setPrioridade(e.target.value)}
+          required
+        >
+          <option value="BAIXA">Baixa</option>
+          <option value="MÉDIA">Média</option>
+          <option value="ALTA">Alta</option>
         </select>
       </div>
       <div className="novoChamado-input">
         <label htmlFor="">Categoria:</label>
-        <select name="categoria" id="">
-          <option value="">Software</option>
-          <option value="">Wardware</option>
+        <select
+          name="categoria"
+          value={categoria}
+          onChange={(e) => setCategoria(e.target.value)}
+          required
+        >
+          <option value="SOFTWARE">Software</option>
+          <option value="HARDWARE">Hardware</option>
         </select>
       </div>
-      <button>Adicionar chamado</button>
+      <button type="button" onClick={criarChamado}>
+        Adicionar chamado
+      </button>
     </div>
   );
 }
