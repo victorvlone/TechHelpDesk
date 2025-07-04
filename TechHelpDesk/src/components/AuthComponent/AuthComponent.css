@@ -33,7 +33,7 @@
   transition: opacity 0.2s ease, visibility 0.2s ease, max-height 0.2s ease;
   gap: 14px;
 }
-.show {
+.register-container.show, .login-container.show {
   opacity: 1;
   visibility: visible;
   max-height: 500px;

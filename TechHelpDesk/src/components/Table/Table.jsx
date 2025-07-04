@@ -1,6 +1,19 @@
+import { useEffect } from "react";
 import "./Table.css";
 
 function Table() {
+
+  useEffect(() => {
+    fetch("http://localhost:8080/chamamdos/todos-chamados", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("usuario")).token
+        }`,
+      },
+    })
+  })
   return (
     <div className="table-container">
       <div className="table-header">

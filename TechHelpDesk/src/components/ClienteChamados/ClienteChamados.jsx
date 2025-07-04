@@ -1,17 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ClienteChamados.css";
 
 function ClienteChamados({ setShowNovoChamado }) {
-  const chamados = [
-    { id: 1, titulo: "Computador não liga", status: "Em aberto" },
-    { id: 2, titulo: "Impressora travando", status: "Resolvido" },
-    { id: 3, titulo: "Erro na internet", status: "Em aberto" },
-  ];
-
-  //State para armazenar quais dados estão abertos
+  const [chamados, setChamados] = useState([]);
   const [abertos, setAbertos] = useState({});
 
-  //Função que alterna o estado de visibilidade de um chamado
+  const buscarChamados = () => {
+    fetch("http://localhost:8080/chamados/meus-chamados", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("usuario")).token
+        }`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao listar chamados: " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setChamados(data);
+        console.log("Chamados encontrados:", data);
+      })
+      .catch((error) => {
+        console.error("Erro:", error);
+      });
+  };
+
+  useEffect(() => {
+    buscarChamados();
+  }, []);
+
   const toggleChamado = (id) => {
     setAbertos((prev) => ({
       ...prev,
@@ -22,11 +44,14 @@ function ClienteChamados({ setShowNovoChamado }) {
   return (
     <div className="clienteChamados-container">
       <div className="clienteChamados-header">
-        <p>Chamados</p>
-        <i
-          className="fi fi-br-add add-icon"
-          onClick={() => setShowNovoChamado(true)}
-        ></i>
+        <div className="clienteChamados-header-title">
+          <p>Chamados</p>
+          <i
+            className="fi fi-br-add add-icon"
+            onClick={() => setShowNovoChamado(true)}
+          ></i>
+        </div>
+        <i className="fi fi-br-refresh" onClick={buscarChamados}></i>
       </div>
 
       {chamados.map((chamado) => (
@@ -37,7 +62,13 @@ function ClienteChamados({ setShowNovoChamado }) {
         >
           <div className="clienteChamados-content-header">
             <h5>{chamado.titulo}</h5>
-            <p>{chamado.status}</p>
+            <p
+              className={`status-${chamado.status
+                .toLowerCase()
+                .replace("_", "-")}`}
+            >
+              {chamado.status}
+            </p>
           </div>
           <div
             className={`clienteChamados-content-body ${
