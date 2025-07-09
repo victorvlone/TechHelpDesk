@@ -19,34 +19,35 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String generateToken(Usuario usuario){
-        try{
+    public String generateToken(Usuario usuario) {
+        try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
-                .withIssuer("auth-api")
-                .withSubject(usuario.getEmail())
-                .withExpiresAt(genExpirationDate())
-                .sign(algorithm);
+                    .withIssuer("auth-api")
+                    .withSubject(usuario.getEmail())
+                    .withClaim("tipoDeUsuario", usuario.getTipodeUsuario().toString())
+                    .withExpiresAt(genExpirationDate())
+                    .sign(algorithm);
             return token;
-        }catch(JWTCreationException exception){
+        } catch (JWTCreationException exception) {
             throw new RuntimeException("Errro ao gerar token");
         }
     }
 
-    public String validateToken(String token){
+    public String validateToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
-                .withIssuer("auth-api")
-                .build()
-                .verify(token)
-                .getSubject();
+                    .withIssuer("auth-api")
+                    .build()
+                    .verify(token)
+                    .getSubject();
         } catch (JWTVerificationException e) {
             return "";
         }
     }
 
-    private Instant genExpirationDate(){
+    private Instant genExpirationDate() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 

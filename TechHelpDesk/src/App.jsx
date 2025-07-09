@@ -12,6 +12,9 @@ function App() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showNovoChamado, setShowNovoChamado] = useState(false);
   const [usuarioLogado, setUsuarioLogado] = useState(null);
+  const [filtros, setFiltros] = useState({});
+  const [chamadoClicado, setChamadoClicado] = useState({});
+
 
   if (!usuarioLogado) {
     return (
@@ -26,12 +29,12 @@ function App() {
   return (
     <>
       <Header setShowSidebar={setShowSidebar} />
-      <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+      <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} setFiltros={setFiltros}/>
       <div className={`tecnico-content container ${showSidebar ? "left" : ""}`}>
-        {usuarioLogado.tipo === "TÉCNICO" && (
+        {usuarioLogado.tipo === "TECNICO" && (
           <>
-            <Table />
-            <ChamadoSleecionado />
+            <ChamadoSleecionado chamadoClicado={chamadoClicado} />
+            <Table filtros={filtros} setChamadoClicado={setChamadoClicado} />
           </>
         )}
         {usuarioLogado.tipo === "CLIENTE" && (

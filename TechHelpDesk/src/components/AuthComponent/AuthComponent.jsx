@@ -144,7 +144,7 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
               onChange={(e) => setTipoDeUsuario(e.target.value)}
             >
               <option value="CLIENTE">Cliente</option>
-              <option value="TÉCNICO  ">Técnico</option>
+              <option value="TECNICO">Técnico</option>
             </select>
           </div>
           <button type="button" onClick={handleSubmit}>
@@ -157,11 +157,21 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
         <div className={`login-container ${isLogin ? "show" : ""}`}>
           <div className="auth-input-container">
             <label htmlFor="emailLogin">Email</label>
-            <input type="text" placeholder="Email" />
+            <input
+              type="text"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="auth-input-container">
             <label htmlFor="senhaLogin">Senha</label>
-            <input type="password" placeholder="Senha" />
+            <input
+              type="password"
+              placeholder="Senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+            />
           </div>
           <button type="button" onClick={handleLogin}>
             Entrar

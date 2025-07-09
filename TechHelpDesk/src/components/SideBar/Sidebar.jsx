@@ -1,10 +1,22 @@
 import { useState } from "react";
 import "./Sidebar.css";
 
-function Sidebar({ showSidebar, setShowSidebar }) {
+function Sidebar({ showSidebar, setShowSidebar, setFiltros }) {
   const [showSituacao, setShowSituacao] = useState(false);
   const [showPrioridade, setShowPrioridade] = useState(false);
   const [showCategoria, setShowCategoria] = useState(false);
+
+  const handleFiltroClick = (campo, valor) => {
+    setFiltros((prev) => ({
+      ...prev,
+      [campo]: valor,
+    }));
+  };
+
+  const opcoesSituacao = ["EM_ABERTO", "EM_ANDAMENTO", "CONCLUIDO"];
+  const opcoesCategoria = ["HARDWARE", "SOFTWARE"];
+  const opcoesPrioridade = ["BAIXA", "MEDIA", "ALTA"];
+
   return (
     <div className={`sidebar-container ${showSidebar ? "show" : ""}`}>
       <div className="sidebar-header">
@@ -31,9 +43,11 @@ function Sidebar({ showSidebar, setShowSidebar }) {
               <i className="fi fi-sr-play"></i>
             </div>
             <ul className={`sidebar-options ${showSituacao ? "show" : ""}`}>
-              <li>Em aberto</li>
-              <li>Em andamento</li>
-              <li>Concluido</li>
+              {opcoesSituacao.map((opcao) => (
+                <li key={opcao} onClick={() => handleFiltroClick("status", opcao)}>
+                  {opcao.replace("_", " ").toLowerCase()}
+                </li>
+              ))}
             </ul>
           </li>
           <li>
@@ -45,8 +59,14 @@ function Sidebar({ showSidebar, setShowSidebar }) {
               <i className="fi fi-sr-play"></i>
             </div>
             <ul className={`sidebar-options ${showCategoria ? "show" : ""}`}>
-              <li>Hardware</li>
-              <li>Software</li>
+              {opcoesCategoria.map((opcao) => (
+                <li
+                  key={opcao}
+                  onClick={() => handleFiltroClick("categoria", opcao)}
+                >
+                  {opcao.toLowerCase()}
+                </li>
+              ))}
             </ul>
           </li>
           <li>
@@ -57,10 +77,12 @@ function Sidebar({ showSidebar, setShowSidebar }) {
               <p className="nav-title">Prioridade</p>
               <i className="fi fi-sr-play"></i>
             </div>
-            <ul className={`sidebar-options ${showPrioridade ? "show" : ""}`}>
-              <li>Baixa</li>
-              <li>Média</li>
-              <li>Alta</li>
+             <ul className={`sidebar-options ${showPrioridade ? "show" : ""}`}>
+              {opcoesPrioridade.map((opcao) => (
+                <li key={opcao} onClick={() => handleFiltroClick("prioridade", opcao)}>
+                  {opcao.toLowerCase()}
+                </li>
+              ))}
             </ul>
           </li>
         </ul>

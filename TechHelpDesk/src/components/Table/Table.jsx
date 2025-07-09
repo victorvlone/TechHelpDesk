@@ -1,19 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Table.css";
 
-function Table() {
+function Table({ filtros, setChamadoClicado }) {
+  const [chamados, setChamados] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/chamamdos/todos-chamados", {
-      method: "GET",
+    fetch("http://localhost:8080/chamados/todos-chamados", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("usuario")).token
         }`,
       },
+      body: JSON.stringify(filtros || {}),
     })
-  })
+      .then((res) => res.json())
+      .then((data) => {
+        setChamados(data);
+        console.log("chamados recebidos: ", data);
+      })
+      .catch((err) => console.error("Erro ao buscar chamados:", err));
+  }, []);
+
   return (
     <div className="table-container">
       <div className="table-header">
@@ -58,90 +67,27 @@ function Table() {
             <col className="col-conclusao" />
           </colgroup>
           <tbody>
-            <tr>
-              <td>311</td>
-              <td>Lucas</td>
-              <td>Sistema trava ao salvar formulário</td>
-              <td>
-                Toda vez que tento salvar um novo registro no sistema de
-                atendimento, a tela congela por alguns segundos e exibe uma...
-              </td>
-              <td>01/06/2025</td>
-              <td>Hardware</td>
-              <td>Baixa</td>
-              <td>Em andamento</td>
-              <td>02/06/2025</td>
-            </tr>
-            <tr>
-<td>311</td>
-              <td>Lucas</td>
-              <td>Sistema trava ao salvar formulário</td>
-              <td>
-                Toda vez que tento salvar um novo registro no sistema de
-                atendimento, a tela congela por alguns segundos e exibe uma...
-              </td>
-              <td>01/06/2025</td>
-              <td>Hardware</td>
-              <td>Baixa</td>
-              <td>Em andamento</td>
-              <td>02/06/2025</td>
-            </tr>
-            <tr>
-<td>311</td>
-              <td>Lucas</td>
-              <td>Sistema trava ao salvar formulário</td>
-              <td>
-                Toda vez que tento salvar um novo registro no sistema de
-                atendimento, a tela congela por alguns segundos e exibe uma...
-              </td>
-              <td>01/06/2025</td>
-              <td>Hardware</td>
-              <td>Baixa</td>
-              <td>Em andamento</td>
-              <td>02/06/2025</td>
-            </tr>
-            <tr>
-              <td>311</td>
-              <td>Lucas</td>
-              <td>Sistema trava ao salvar formulário</td>
-              <td>
-                Toda vez que tento salvar um novo registro no sistema de
-                atendimento, a tela congela por alguns segundos e exibe uma...
-              </td>
-              <td>01/06/2025</td>
-              <td>Hardware</td>
-              <td>Baixa</td>
-              <td>Em andamento</td>
-              <td>02/06/2025</td>
-            </tr>
-            <tr>
-              <td>311</td>
-              <td>Lucas</td>
-              <td>Sistema trava ao salvar formulário</td>
-              <td>
-                Toda vez que tento salvar um novo registro no sistema de
-                atendimento, a tela congela por alguns segundos e exibe uma...
-              </td>
-              <td>01/06/2025</td>
-              <td>Hardware</td>
-              <td>Baixa</td>
-              <td>Em andamento</td>
-              <td>02/06/2025</td>
-            </tr>
-            <tr>
-              <td>311</td>
-              <td>Lucas</td>
-              <td>Sistema trava ao salvar formulário</td>
-              <td>
-                Toda vez que tento salvar um novo registro no sistema de
-                atendimento, a tela congela por alguns segundos e exibe uma...
-              </td>
-              <td>01/06/2025</td>
-              <td>Hardware</td>
-              <td>Baixa</td>
-              <td>Em andamento</td>
-              <td>02/06/2025</td>
-            </tr>
+            {chamados.map((chamado) => (
+              <tr key={chamado.id} onClick={() => setChamadoClicado(chamado)}>
+                <td>{chamado.id}</td>
+                <td>{chamado.usuario?.primeiroNome || "Sem nome"}</td>
+                <td>{chamado.titulo || "Sem título"}</td>
+                <td>{chamado.descricao || "Sem descrição"}</td>
+                <td>
+                  {new Date(chamado.dataCriacao).toLocaleDateString("pt-BR")}
+                </td>
+                <td>{chamado.categoria}</td>
+                <td>{chamado.prioridade}</td>
+                <td>{chamado.status.replace("_", " ")}</td>
+                <td>
+                  {chamado.dataConclusao
+                    ? new Date(chamado.dataConclusao).toLocaleDateString(
+                        "pt-BR"
+                      )
+                    : "—"}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
