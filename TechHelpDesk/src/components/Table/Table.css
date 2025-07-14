@@ -22,8 +22,12 @@ table {
 }
 .table-content {
   overflow-x: auto;
-  height: 450px;
+  max-height: 700px;
   width: 100%;
+  transition: max-height .3s ease;
+}
+.table-content.extend{
+  max-height: 450px;
 }
 th {
   padding: 20px;
@@ -34,6 +38,8 @@ th {
 }
 .col-descricao {
   width: 400px;
+  word-break: break-word;
+  white-space: normal;
 }
 .col-id {
   width: 100px;

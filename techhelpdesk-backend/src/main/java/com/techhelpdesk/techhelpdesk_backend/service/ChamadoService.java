@@ -22,24 +22,26 @@ public class ChamadoService {
         return chamadoRepository.save(chamado);
     }
 
-    public Chamado atualizarChamado(Chamado chamado) {
-        if (chamadoRepository.existsById(chamado.getId())) {
+    public Chamado atualizarChamado(Long id, Chamado chamado) {
+        if (chamadoRepository.existsById(id)) {
+            chamado.setId(id);
             return chamadoRepository.save(chamado);
         } else {
             throw new RuntimeException("Chamado não encontrado");
         }
     }
 
-    public List<Chamado> listarChamados(UUID id){
+    public List<Chamado> listarChamados(UUID id) {
         try {
             List<Chamado> chamados = chamadoRepository.findAllByUsuarioId(id);
             return chamados;
         } catch (Exception e) {
             throw new RuntimeException("Nenhum chamado encontrado");
-       }
+        }
     }
-    public List<Chamado> listarTodosChamados(Map<String, String> filtros){
-        try{
+
+    public List<Chamado> listarTodosChamados(Map<String, String> filtros) {
+        try {
             List<Chamado> chamados = chamadoRepository.findAll(ChamadoSpecification.chamadosPor(filtros));
             return chamados;
         } catch (Exception e) {

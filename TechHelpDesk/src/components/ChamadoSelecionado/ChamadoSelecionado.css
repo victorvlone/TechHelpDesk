@@ -1,5 +1,14 @@
 .chamados-container {
   width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  max-height: 0;
+  transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+.chamados-container.show{
+  opacity: 1;
+  visibility: visible;
+  max-height: 300px;
 }
 .chamados-content {
   width: 100%;
@@ -29,7 +38,7 @@
   box-shadow: 0 4px 10px rgba(52, 211, 153, 0.5);
 }
 .descricao {
-  width: 90%;
+  max-width: 80%;
 }
 .descricao p {
   white-space: normal;

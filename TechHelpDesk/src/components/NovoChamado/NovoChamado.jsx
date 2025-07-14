@@ -10,15 +10,17 @@ function NovoChamado({ showNovoChamado, setShowNovoChamado }) {
 
   const criarChamado = (e) => {
     e.preventDefault();
+    const cliente = JSON.parse(localStorage.getItem("usuario")); 
     fetch("http://localhost:8080/chamados/novo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${
-          JSON.parse(localStorage.getItem("usuario")).token
-        }`,
+        Authorization: `Bearer ${cliente.token}`,
       },
       body: JSON.stringify({
+        cliente: {
+          id: cliente.id,
+        },
         titulo,
         descricao,
         prioridade,

@@ -20,7 +20,8 @@ import com.techhelpdesk.techhelpdesk_backend.entities.Chamado;
 import com.techhelpdesk.techhelpdesk_backend.entities.Usuario;
 import com.techhelpdesk.techhelpdesk_backend.repository.UsuarioRepository;
 import com.techhelpdesk.techhelpdesk_backend.service.ChamadoService;
-
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @CrossOrigin("*")
@@ -57,6 +58,17 @@ public class ChamadoController {
         }
     }
 
+    @PutMapping("emAndamento/{id}")
+    public ResponseEntity<?> emAndamento(@PathVariable Long id, @RequestBody Chamado chamado) {
+        try {
+            System.out.println("chamado recebido: " + chamado);
+            Chamado chamadoAtualizado = chamadoService.atualizarChamado(id, chamado);
+            return ResponseEntity.ok().body("Chamado atualizado com sucesso!");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Erro ao atualizar chamado: " + e.getMessage());
+        }
+    }
+
     @GetMapping("/meus-chamados")
     public ResponseEntity<?> listarChamadosDoUsuario() {
         try {
@@ -71,11 +83,11 @@ public class ChamadoController {
     }
 
     @PostMapping("/todos-chamados")
-    public ResponseEntity<?> listarTodosOsChamados(@RequestBody Map<String, String> filtros){
-        try{
+    public ResponseEntity<?> listarTodosOsChamados(@RequestBody Map<String, String> filtros) {
+        try {
             List<Chamado> chamados = chamadoService.listarTodosChamados(filtros);
             return ResponseEntity.ok(chamados);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(500).body("Erro ao buscar todos os chamados");
         }
     }

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import "./Table.css";
 
-function Table({ filtros, setChamadoClicado }) {
+function Table({ filtros, setChamadoClicado, chamadoClicado }) {
   const [chamados, setChamados] = useState([]);
 
   useEffect(() => {
+    console.log("filtros que chegaram: ", filtros);
     fetch("http://localhost:8080/chamados/todos-chamados", {
       method: "POST",
       headers: {
@@ -21,7 +22,7 @@ function Table({ filtros, setChamadoClicado }) {
         console.log("chamados recebidos: ", data);
       })
       .catch((err) => console.error("Erro ao buscar chamados:", err));
-  }, []);
+  }, [filtros]);
 
   return (
     <div className="table-container">
@@ -53,7 +54,7 @@ function Table({ filtros, setChamadoClicado }) {
           </thead>
         </table>
       </div>
-      <div className="table-content">
+      <div className={`table-content ${chamadoClicado && chamadoClicado.id ? "extend" : ""}`}>
         <table>
           <colgroup>
             <col className="col-id" />
@@ -69,17 +70,17 @@ function Table({ filtros, setChamadoClicado }) {
           <tbody>
             {chamados.map((chamado) => (
               <tr key={chamado.id} onClick={() => setChamadoClicado(chamado)}>
-                <td>{chamado.id}</td>
-                <td>{chamado.usuario?.primeiroNome || "Sem nome"}</td>
-                <td>{chamado.titulo || "Sem título"}</td>
-                <td>{chamado.descricao || "Sem descrição"}</td>
-                <td>
+                <td className="col-id">{chamado.id}</td>
+                <td className="col-cliente">{chamado.usuario?.primeiroNome || "Sem nome"}</td>
+                <td className="col-titulo">{chamado.titulo || "Sem título"}</td>
+                <td className="col-descricao">{chamado.descricao || "Sem descrição"}</td>
+                <td className="col-criacao">
                   {new Date(chamado.dataCriacao).toLocaleDateString("pt-BR")}
                 </td>
-                <td>{chamado.categoria}</td>
-                <td>{chamado.prioridade}</td>
-                <td>{chamado.status.replace("_", " ")}</td>
-                <td>
+                <td className="col-categoria">{chamado.categoria}</td>
+                <td className="col-prioridade">{chamado.prioridade}</td>
+                <td className="col-situacao">{chamado.status.replace("_", " ")}</td>
+                <td className="col-conclusao"> 
                   {chamado.dataConclusao
                     ? new Date(chamado.dataConclusao).toLocaleDateString(
                         "pt-BR"

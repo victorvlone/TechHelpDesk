@@ -7,6 +7,7 @@ import ChamadoSleecionado from "./components/ChamadoSelecionado/ChamadoSeleciona
 import ClienteChamados from "./components/ClienteChamados/ClienteChamados";
 import NovoChamado from "./components/NovoChamado/NovoChamado";
 import AuthComponent from "./components/AuthComponent/AuthComponent";
+import FiltrosAplicados from "./components/FiltrosAplicados/FiltrosAplicados";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -14,7 +15,6 @@ function App() {
   const [usuarioLogado, setUsuarioLogado] = useState(null);
   const [filtros, setFiltros] = useState({});
   const [chamadoClicado, setChamadoClicado] = useState({});
-
 
   if (!usuarioLogado) {
     return (
@@ -29,12 +29,21 @@ function App() {
   return (
     <>
       <Header setShowSidebar={setShowSidebar} />
-      <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} setFiltros={setFiltros}/>
+      <Sidebar
+        showSidebar={showSidebar}
+        setShowSidebar={setShowSidebar}
+        setFiltros={setFiltros}
+      />
       <div className={`tecnico-content container ${showSidebar ? "left" : ""}`}>
         {usuarioLogado.tipo === "TECNICO" && (
           <>
             <ChamadoSleecionado chamadoClicado={chamadoClicado} />
-            <Table filtros={filtros} setChamadoClicado={setChamadoClicado} />
+            <FiltrosAplicados filtros={filtros} setFiltros={setFiltros} />
+            <Table
+              filtros={filtros}
+              setChamadoClicado={setChamadoClicado}
+              chamadoClicado={chamadoClicado}
+            />
           </>
         )}
         {usuarioLogado.tipo === "CLIENTE" && (

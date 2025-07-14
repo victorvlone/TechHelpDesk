@@ -57,6 +57,10 @@ public class Chamado {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
+    @ManyToOne
+    @JoinColumn(name = "tecnico_id", nullable = true)
+    private Usuario tecnico;
+
     public Chamado(String titulo, String descricao, LocalDateTime dataCriacao, Prioridade prioridade,
             Status status, Categoria categoria) {
         this.titulo = titulo;
