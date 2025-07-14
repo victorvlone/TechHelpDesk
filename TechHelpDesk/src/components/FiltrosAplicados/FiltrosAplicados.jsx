@@ -25,7 +25,7 @@ function FiltrosAplicados({ filtros, setFiltros }) {
   };
 
   return (
-    <div className="filtrosAplicados-container">
+    <div className={`filtrosAplicados ${Object.keys(filtros).length ? "show" : ""}`}>
       {Object.entries(filtros).map(([chave, valor]) => (
         <div key={chave} className="filtroAplicado">
           <p>{valoresAmigaveis[valor] || valor}</p>

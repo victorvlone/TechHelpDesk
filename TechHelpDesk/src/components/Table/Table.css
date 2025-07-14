@@ -14,8 +14,13 @@ table {
   overflow: hidden;
   text-align: center;
 }
+.table-header-container {
+  background: linear-gradient(to top, #5e96bb, var(--azul));
+  border-radius: 10px 10px 0 0;
+}
 .table-header {
   width: 100%;
+  padding-right: 17px;
 }
 .table-header table {
   border-radius: 10px 10px 0 0;
@@ -24,9 +29,9 @@ table {
   overflow-x: auto;
   max-height: 700px;
   width: 100%;
-  transition: max-height .3s ease;
+  transition: max-height 0.3s ease;
 }
-.table-content.extend{
+.table-content.extend {
   max-height: 450px;
 }
 th {
@@ -37,7 +42,7 @@ th {
   font-size: 20px;
 }
 .col-descricao {
-  width: 400px;
+  width: 300px;
   word-break: break-word;
   white-space: normal;
 }
@@ -45,13 +50,23 @@ th {
   width: 100px;
 }
 .col-cliente,
-.col-titulo,
-.col-criacao,
+.col-titulo {
+  width: 150px;
+}
+.col-criacao {
+  width: 130px;
+}
 .col-situacao {
   width: 150px;
 }
+.col-prioridade {
+  width: 150px;
+}
 .col-conclusao {
-  width: 130px;
+  width: 160px;
+}
+.col-categoria {
+  width: 140px;
 }
 .col-c th,
 tr {
@@ -84,6 +99,8 @@ td:nth-child(3) {
 td:nth-child(4) {
   text-align: left;
   font-size: 14px;
+  max-height: 50px;
+  overflow: hidden;
 }
 td:nth-child(6) {
   font-size: 16px;
@@ -91,4 +108,18 @@ td:nth-child(6) {
 }
 td:nth-child(9) {
   text-overflow: ellipsis;
+}
+
+.descricao-limitada {
+  display: -webkit-box;              /* Necessário para line-clamp funcionar */
+  -webkit-box-orient: vertical;      /* Define a direção do conteúdo */
+  -webkit-line-clamp: 2;             /* Limita a 2 linhas */
+  overflow: hidden;                  /* Esconde conteúdo extra */
+  text-overflow: ellipsis;          /* Adiciona "..." */
+  white-space: normal;              /* Permite quebra de linha */
+  word-break: break-word;           /* Quebra palavras grandes */
+
+  /* Para navegadores futuros que suportem line-clamp sem prefixo */
+  line-clamp: 2;                     /* Sem o -webkit-, para compatibilidade futura */
+  box-orient: vertical;             /* Para referência, mesmo que não seja necessário */
 }

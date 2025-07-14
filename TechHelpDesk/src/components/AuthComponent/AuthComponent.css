@@ -4,7 +4,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;
+    background: url(../../../public/assets/images/4.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
 }
 .auth-content img {
   width: 68px;

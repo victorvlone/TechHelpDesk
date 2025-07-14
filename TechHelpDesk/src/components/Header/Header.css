@@ -1,23 +1,39 @@
 .header-container {
   height: 90px;
   width: 100vw;
-  background-color: white;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
+  background: url(../../../public/assets/images/4.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 1%;
   display: flex;
   align-items: center;
+  position: relative;
 }
 .header-content {
-  width: 90%;
+  width: 100%;
+  height: 100%;
   margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .logo-btn {
+  position: absolute;
   display: flex;
   align-items: center;
   gap: 20px;
   cursor: pointer;
+  width: 18%;
+  border-radius: 0 100px 0 0;
+  height: 100%;
+  background-color: white;
+}
+.logo-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
 }
 .list-icon {
   font-size: 20px;
@@ -72,7 +88,17 @@ i {
 .user-content {
   display: flex;
   align-items: center;
+  width: 18%;
+  border-radius: 100px 0 0 0;
+  height: 100%;
+  background-color: white;
+}
+.user-content-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 30px;
+  width: 100%;
 }
 .header-icon {
   font-size: 30px;
@@ -83,4 +109,15 @@ i {
 }
 .user-icon {
   width: 50px;
+}
+.search-container{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 64%;
+  left: 50%;
+  transform: translate(-50%);
+  box-shadow: 0 4px 2px rgba(0, 0, 0, 0.082);
 }

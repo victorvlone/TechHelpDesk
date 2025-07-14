@@ -26,6 +26,7 @@ function Table({ filtros, setChamadoClicado, chamadoClicado }) {
 
   return (
     <div className="table-container">
+      <div className="table-header-container">
       <div className="table-header">
         <table>
           <colgroup>
@@ -41,20 +42,25 @@ function Table({ filtros, setChamadoClicado, chamadoClicado }) {
           </colgroup>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Cliente</th>
-              <th>Titulo</th>
-              <th>Descrição</th>
-              <th>Criação</th>
-              <th>Categoria</th>
-              <th>Priori...</th>
-              <th>Status</th>
-              <th>Conclusão</th>
+              <th className="col-id">ID</th>
+              <th className="col-cliente">Cliente</th>
+              <th className="col-titulo">Titulo</th>
+              <th className="col-descricao">Descrição</th>
+              <th className="col-criacao">Criação</th>
+              <th className="col-categoria">Cate...</th>
+              <th className="col-prioridade">Prio...</th>
+              <th className="col-situacao">Status</th>
+              <th className="col-conclusao">Conclusão</th>
             </tr>
           </thead>
         </table>
       </div>
-      <div className={`table-content ${chamadoClicado && chamadoClicado.id ? "extend" : ""}`}>
+      </div>
+      <div
+        className={`table-content ${
+          chamadoClicado && chamadoClicado.id ? "extend" : ""
+        }`}
+      >
         <table>
           <colgroup>
             <col className="col-id" />
@@ -71,16 +77,24 @@ function Table({ filtros, setChamadoClicado, chamadoClicado }) {
             {chamados.map((chamado) => (
               <tr key={chamado.id} onClick={() => setChamadoClicado(chamado)}>
                 <td className="col-id">{chamado.id}</td>
-                <td className="col-cliente">{chamado.usuario?.primeiroNome || "Sem nome"}</td>
+                <td className="col-cliente">
+                  {chamado.usuario?.primeiroNome || "Sem nome"}
+                </td>
                 <td className="col-titulo">{chamado.titulo || "Sem título"}</td>
-                <td className="col-descricao">{chamado.descricao || "Sem descrição"}</td>
+                <td className="col-descricao">
+                  <div className="descricao-limitada">
+    {chamado.descricao || "Sem descrição"}
+  </div>
+                </td>
                 <td className="col-criacao">
                   {new Date(chamado.dataCriacao).toLocaleDateString("pt-BR")}
                 </td>
                 <td className="col-categoria">{chamado.categoria}</td>
                 <td className="col-prioridade">{chamado.prioridade}</td>
-                <td className="col-situacao">{chamado.status.replace("_", " ")}</td>
-                <td className="col-conclusao"> 
+                <td className="col-situacao">
+                  {chamado.status.replace("_", " ")}
+                </td>
+                <td className="col-conclusao">
                   {chamado.dataConclusao
                     ? new Date(chamado.dataConclusao).toLocaleDateString(
                         "pt-BR"
