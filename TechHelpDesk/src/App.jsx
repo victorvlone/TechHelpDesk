@@ -28,13 +28,15 @@ function App() {
   console.log("Usuário logado no App.jsx:", usuarioLogado);
   return (
     <>
-      <Header setShowSidebar={setShowSidebar} />
+      <div className="background-overlay"></div>
+
       <Sidebar
         showSidebar={showSidebar}
         setShowSidebar={setShowSidebar}
         setFiltros={setFiltros}
       />
       <div className={`tecnico-content container ${showSidebar ? "left" : ""}`}>
+      <Header setShowSidebar={setShowSidebar} />
         {usuarioLogado.tipo === "TECNICO" && (
           <>
             <ChamadoSleecionado chamadoClicado={chamadoClicado} />

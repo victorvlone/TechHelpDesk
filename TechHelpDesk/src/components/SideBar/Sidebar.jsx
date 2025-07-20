@@ -21,11 +21,7 @@ function Sidebar({ showSidebar, setShowSidebar, setFiltros }) {
     <div className={`sidebar-container ${showSidebar ? "show" : ""}`}>
       <div className="sidebar-header">
         <div className="sidebar-logo">
-          <i
-            className="fi fi-rs-angle-double-small-left header-icon"
-            onClick={() => setShowSidebar(false)}
-          ></i>
-          <img src="/assets/images/logo.png" alt="" />
+          <img src="/assets/images/logo-name.png" alt="" />
         </div>
         <div className="sidebar-header-data">
           <h4>João Victor</h4>

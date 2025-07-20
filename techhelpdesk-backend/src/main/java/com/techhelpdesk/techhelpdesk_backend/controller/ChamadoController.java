@@ -91,4 +91,7 @@ public class ChamadoController {
             return ResponseEntity.status(500).body("Erro ao buscar todos os chamados");
         }
     }
+
+
+    
 }
