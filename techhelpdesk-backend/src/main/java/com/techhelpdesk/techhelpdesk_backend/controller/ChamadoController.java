@@ -3,6 +3,7 @@ package com.techhelpdesk.techhelpdesk_backend.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import com.techhelpdesk.techhelpdesk_backend.repository.UsuarioRepository;
 import com.techhelpdesk.techhelpdesk_backend.service.ChamadoService;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @CrossOrigin("*")
@@ -92,6 +94,15 @@ public class ChamadoController {
         }
     }
 
+    @GetMapping("/chamadoPorId/{id}")
+    public ResponseEntity<?> chamadoPorId(@PathVariable Long id) {
+        Optional<Chamado> chamado = chamadoService.buscarPorId(id);
 
-    
+        if (chamado.isPresent()) {
+            return ResponseEntity.ok(chamado.get());
+        } else {
+            return ResponseEntity.status(404).body("Nenhum chamado encontrado com o ID: " + id);
+        }
+    }
+
 }

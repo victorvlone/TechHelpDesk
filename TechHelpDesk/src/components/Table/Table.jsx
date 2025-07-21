@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import "./Table.css";
 
-function Table({ filtros, setChamadoClicado, chamadoClicado }) {
+function Table({
+  filtros,
+  setChamadoClicado,
+  chamadoClicado,
+  chamadoPesquisado,
+}) {
   const [chamados, setChamados] = useState([]);
 
   useEffect(() => {
@@ -27,34 +32,34 @@ function Table({ filtros, setChamadoClicado, chamadoClicado }) {
   return (
     <div className="table-container">
       <div className="table-header-container">
-      <div className="table-header">
-        <table>
-          <colgroup>
-            <col className="col-id" />
-            <col className="col-cliente" />
-            <col className="col-titulo" />
-            <col className="col-descricao" />
-            <col className="col-criacao" />
-            <col className="col-categoria" />
-            <col className="col-prioridade" />
-            <col className="col-situacao" />
-            <col className="col-conclusao" />
-          </colgroup>
-          <thead>
-            <tr>
-              <th className="col-id">ID</th>
-              <th className="col-cliente">Cliente</th>
-              <th className="col-titulo">Titulo</th>
-              <th className="col-descricao">Descrição</th>
-              <th className="col-criacao">Criação</th>
-              <th className="col-categoria">Cate...</th>
-              <th className="col-prioridade">Prio...</th>
-              <th className="col-situacao">Status</th>
-              <th className="col-conclusao">Conclusão</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
+        <div className="table-header">
+          <table>
+            <colgroup>
+              <col className="col-id" />
+              <col className="col-cliente" />
+              <col className="col-titulo" />
+              <col className="col-descricao" />
+              <col className="col-criacao" />
+              <col className="col-categoria" />
+              <col className="col-prioridade" />
+              <col className="col-situacao" />
+              <col className="col-conclusao" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th className="col-id">ID</th>
+                <th className="col-cliente">Cliente</th>
+                <th className="col-titulo">Titulo</th>
+                <th className="col-descricao">Descrição</th>
+                <th className="col-criacao">Criação</th>
+                <th className="col-categoria">Cate...</th>
+                <th className="col-prioridade">Prio...</th>
+                <th className="col-situacao">Status</th>
+                <th className="col-conclusao">Conclusão</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       </div>
       <div
         className={`table-content ${
@@ -74,7 +79,10 @@ function Table({ filtros, setChamadoClicado, chamadoClicado }) {
             <col className="col-conclusao" />
           </colgroup>
           <tbody>
-            {chamados.map((chamado) => (
+            {(chamadoPesquisado && chamadoPesquisado.id
+              ? [chamadoPesquisado] // coloca em array pra poder usar map
+              : chamados
+            ).map((chamado) => (
               <tr key={chamado.id} onClick={() => setChamadoClicado(chamado)}>
                 <td className="col-id">{chamado.id}</td>
                 <td className="col-cliente">
@@ -83,8 +91,8 @@ function Table({ filtros, setChamadoClicado, chamadoClicado }) {
                 <td className="col-titulo">{chamado.titulo || "Sem título"}</td>
                 <td className="col-descricao">
                   <div className="descricao-limitada">
-    {chamado.descricao || "Sem descrição"}
-  </div>
+                    {chamado.descricao || "Sem descrição"}
+                  </div>
                 </td>
                 <td className="col-criacao">
                   {new Date(chamado.dataCriacao).toLocaleDateString("pt-BR")}

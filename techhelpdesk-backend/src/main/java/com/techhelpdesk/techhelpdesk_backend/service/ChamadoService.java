@@ -2,6 +2,7 @@ package com.techhelpdesk.techhelpdesk_backend.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,4 +58,9 @@ public class ChamadoService {
             return false;
         }
     }
+
+    public Optional<Chamado> buscarPorId(Long id) {
+        return chamadoRepository.findById(id);
+    }
+
 }
