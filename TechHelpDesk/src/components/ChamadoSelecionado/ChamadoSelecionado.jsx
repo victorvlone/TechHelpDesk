@@ -7,7 +7,7 @@ function ChamadoSleecionado({ chamadoClicado, atualizarChamados }) {
     const tecnico = JSON.parse(localStorage.getItem("usuario"));
     console.log("Token atual:", tecnico.token);
 
-    fetch(`http://localhost:8080/chamados/emAndamento/${chamado.id}`, {
+    fetch(`http://localhost:8080/chamados/atualizar/${chamado.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

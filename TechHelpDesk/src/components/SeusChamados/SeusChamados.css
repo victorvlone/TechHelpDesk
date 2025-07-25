@@ -18,12 +18,15 @@
 .seusChamados-options {
   display: flex;
   justify-content: space-between;
-  width: 60%;
+  width: 80%;
+  align-items: center;
+  margin-top: 10px;
 }
 .seusChamados-options h5 {
   cursor: pointer;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   transition: color 0.3s ease;
+  text-align: center;
 }
 .seusChamados-options h5:hover {
   color: #5e96bb;
@@ -37,13 +40,14 @@
   transition: opacity 0.5s ease;
 }
 .seuschamados-list {
-  max-width: 100%;
+  width: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   padding: 20px;
   max-height: 400px;
   overflow-y: auto;
+  align-items: center;
 }
 .seuschamados-list p {
   font-weight: 500;
@@ -55,12 +59,13 @@
   padding: 10px;
   gap: 20px;
   border-radius: 10px;
+  width: 100%;
   cursor: pointer;
   transition: box-shadow 0.3s ease, background-color 0.3s ease;
   position: relative;
 }
 .seusChamados-list-item h5 {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 18px;
 }
 .seusChamados-list-item p {
@@ -112,4 +117,10 @@
   justify-content: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
+}
+.btn-verde.desativado {
+  background-color: rgb(4, 80, 4); /* verde/azul mais escuro */
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.3;
 }

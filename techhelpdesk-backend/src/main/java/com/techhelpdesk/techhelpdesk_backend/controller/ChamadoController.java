@@ -61,7 +61,7 @@ public class ChamadoController {
         }
     }
 
-    @PutMapping("emAndamento/{id}")
+    @PutMapping("atualizar/{id}")
     public ResponseEntity<?> emAndamento(@PathVariable Long id, @RequestBody Chamado chamado) {
         try {
             System.out.println("chamado recebido: " + chamado);

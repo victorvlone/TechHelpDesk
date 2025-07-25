@@ -177,7 +177,12 @@ function Header({ setShowSidebar, setChamadoPesquisado }) {
           </div>
         </div>
         {showSeusChamados && (
-          <SeusChamados showSeusChamados={showSeusChamados} tecChamados={tecChamados} chamadosDoTecnico={chamadosDoTecnico}/>
+          <SeusChamados
+            showSeusChamados={showSeusChamados}
+            tecChamados={tecChamados}
+            chamadosDoTecnico={chamadosDoTecnico}
+            setShowSeusChamados={setShowSeusChamados}
+          />
         )}
       </div>
     </div>

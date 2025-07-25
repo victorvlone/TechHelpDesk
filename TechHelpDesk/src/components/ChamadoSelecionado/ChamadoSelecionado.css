@@ -38,10 +38,10 @@
   box-shadow: 0 4px 10px rgba(52, 211, 153, 0.5);
 }
 .btn-status.desativado {
-  background-color: #3a7a99; /* verde/azul mais escuro */
+  background-color: #3a7a99;
   cursor: not-allowed;
   pointer-events: none;
-  opacity: 0.7;
+  opacity: .7;
 }
 .descricao {
   max-width: 80%;
