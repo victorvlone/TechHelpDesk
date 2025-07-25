@@ -11,4 +11,6 @@ import com.techhelpdesk.techhelpdesk_backend.entities.Chamado;
 public interface ChamadoRepository extends JpaRepository<Chamado, Long>, JpaSpecificationExecutor<Chamado>{
 
     public List<Chamado> findAllByUsuarioId(UUID id);
+
+    public List<Chamado> findByTecnicoIdAndStatusIn(UUID id, List<String> status);
 }

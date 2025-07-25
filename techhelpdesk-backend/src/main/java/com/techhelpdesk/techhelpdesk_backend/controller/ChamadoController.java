@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techhelpdesk.techhelpdesk_backend.DTO.ChamadoDTO;
+import com.techhelpdesk.techhelpdesk_backend.DTO.FiltroTecnicoDTO;
 import com.techhelpdesk.techhelpdesk_backend.entities.Chamado;
 import com.techhelpdesk.techhelpdesk_backend.entities.Usuario;
 import com.techhelpdesk.techhelpdesk_backend.repository.UsuarioRepository;
@@ -67,6 +68,7 @@ public class ChamadoController {
             Chamado chamadoAtualizado = chamadoService.atualizarChamado(id, chamado);
             return ResponseEntity.ok().body("Chamado atualizado com sucesso!");
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(500).body("Erro ao atualizar chamado: " + e.getMessage());
         }
     }
@@ -103,6 +105,12 @@ public class ChamadoController {
         } else {
             return ResponseEntity.status(404).body("Nenhum chamado encontrado com o ID: " + id);
         }
+    }
+
+    @PostMapping("/tecnico/chamados")
+    public ResponseEntity<?> postMethodName(@RequestBody FiltroTecnicoDTO filtro) {
+        List<Chamado> chamados = chamadoService.chamadosDoTecnico(filtro.id(), filtro.status());
+        return ResponseEntity.ok(chamados);
     }
 
 }

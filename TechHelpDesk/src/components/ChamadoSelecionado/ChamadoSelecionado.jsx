@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./ChamadoSelecionado.css";
 
-function ChamadoSleecionado({ chamadoClicado }) {
+function ChamadoSleecionado({ chamadoClicado, atualizarChamados }) {
+  const [botaoDesativado, setBotaoDesativado] = useState(false);
   function atenderChamado(chamado) {
     const tecnico = JSON.parse(localStorage.getItem("usuario"));
     console.log("Token atual:", tecnico.token);
@@ -21,15 +22,33 @@ function ChamadoSleecionado({ chamadoClicado }) {
         tecnico: {
           id: tecnico.id,
         },
+        usuario: {
+          id: chamado.usuario.id,
+        },
       }),
-    });
+    })
+      .then((res) => {
+        if (res.ok) {
+          setBotaoDesativado(true);
+          atualizarChamados();
+        }
+      })
+      .catch((err) => console.error("Erro ao atender chamado:", err));
   }
 
-  useEffect(() => {
-    console.log("chamado clicado: ", chamadoClicado);
-  },[])
+useEffect(() => {
+  if (chamadoClicado && chamadoClicado.status === "EM_ANDAMENTO") {
+    setBotaoDesativado(true);
+  } else {
+    setBotaoDesativado(false);
+  }
+}, [chamadoClicado]);
   return (
-    <div className={`chamados-container ${chamadoClicado && chamadoClicado.id ? "show" : ""}`}>
+    <div
+      className={`chamados-container ${
+        chamadoClicado && chamadoClicado.id ? "show" : ""
+      }`}
+    >
       <div className="chamados-content">
         <p>
           <b>ID:</b> {chamadoClicado.id}
@@ -63,9 +82,13 @@ function ChamadoSleecionado({ chamadoClicado }) {
             <b>Descrição:</b> {chamadoClicado.descricao}
           </p>
         </div>
-          <button onClick={() => atenderChamado(chamadoClicado)}>
-            Atender chamado<i className="fi fi-br-add"></i>
-          </button>
+        <button
+          onClick={() => atenderChamado(chamadoClicado)}
+          disabled={botaoDesativado}
+          className={`btn-status ${botaoDesativado ? "desativado" : ""}`}
+        >
+          Atender chamado<i className="fi fi-br-add"></i>
+        </button>
       </div>
     </div>
   );

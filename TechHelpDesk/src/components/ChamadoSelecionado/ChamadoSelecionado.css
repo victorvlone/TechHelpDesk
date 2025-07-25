@@ -1,5 +1,4 @@
 .chamados-container {
-    z-index: 1;
   width: 100%;
   opacity: 0;
   visibility: hidden;
@@ -18,7 +17,7 @@
   padding-bottom: 5px;
   align-items: center;
 }
-.chamados-content button {
+.btn-status {
   border: none;
   border-radius: 10px;
   width: 200px;
@@ -35,8 +34,14 @@
   transition: box-shadow 0.3s ease;
   cursor: pointer;
 }
-.chamados-content button:hover {
+.btn-status:hover {
   box-shadow: 0 4px 10px rgba(52, 211, 153, 0.5);
+}
+.btn-status.desativado {
+  background-color: #3a7a99; /* verde/azul mais escuro */
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.7;
 }
 .descricao {
   max-width: 80%;

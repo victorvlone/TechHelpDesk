@@ -16,6 +16,11 @@ function App() {
   const [filtros, setFiltros] = useState({});
   const [chamadoClicado, setChamadoClicado] = useState({});
   const [chamadoPesquisado, setChamadoPesquisado] = useState({});
+  const [chamadosAtualizados, setChamadosAtualizados] = useState(false);
+
+  function atualizarChamados() {
+    setChamadosAtualizados((prev) => !prev);
+  }
 
   if (!usuarioLogado) {
     return (
@@ -31,32 +36,34 @@ function App() {
     <>
       <div className="background-overlay"></div>
 
-      <Sidebar
-        showSidebar={showSidebar}
-        setFiltros={setFiltros}
-      />
+      <Sidebar showSidebar={showSidebar} setFiltros={setFiltros} />
+
+      {usuarioLogado.tipo === "CLIENTE" && (
+        <NovoChamado
+          showNovoChamado={showNovoChamado}
+          setShowNovoChamado={setShowNovoChamado}
+        />
+      )}
       <div className={`tecnico-content container ${showSidebar ? "left" : ""}`}>
-      <Header setShowSidebar={setShowSidebar} setChamadoPesquisado={setChamadoPesquisado} />
+        <Header
+          setShowSidebar={setShowSidebar}
+          setChamadoPesquisado={setChamadoPesquisado}
+        />
         {usuarioLogado.tipo === "TECNICO" && (
           <>
-            <ChamadoSleecionado chamadoClicado={chamadoClicado} />
+            <ChamadoSleecionado chamadoClicado={chamadoClicado}   atualizarChamados={atualizarChamados} />
             <FiltrosAplicados filtros={filtros} setFiltros={setFiltros} />
             <Table
               filtros={filtros}
               setChamadoClicado={setChamadoClicado}
               chamadoClicado={chamadoClicado}
               chamadoPesquisado={chamadoPesquisado}
+                chamadosAtualizados={chamadosAtualizados}
             />
           </>
         )}
         {usuarioLogado.tipo === "CLIENTE" && (
-          <>
-            <NovoChamado
-              showNovoChamado={showNovoChamado}
-              setShowNovoChamado={setShowNovoChamado}
-            />
-            <ClienteChamados setShowNovoChamado={setShowNovoChamado} />
-          </>
+          <ClienteChamados setShowNovoChamado={setShowNovoChamado} />
         )}
       </div>
     </>

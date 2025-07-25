@@ -6,6 +6,7 @@ function Table({
   setChamadoClicado,
   chamadoClicado,
   chamadoPesquisado,
+  chamadosAtualizados,
 }) {
   const [chamados, setChamados] = useState([]);
 
@@ -27,7 +28,7 @@ function Table({
         console.log("chamados recebidos: ", data);
       })
       .catch((err) => console.error("Erro ao buscar chamados:", err));
-  }, [filtros]);
+  }, [filtros, chamadosAtualizados]);
 
   return (
     <div className="table-container">
