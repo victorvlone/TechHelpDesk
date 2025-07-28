@@ -1,7 +1,12 @@
 import { useState } from "react";
 import "./SeusChamados.css";
 
-function SeusChamados({ showSeusChamados, tecChamados, chamadosDoTecnico, setShowSeusChamados }) {
+function SeusChamados({
+  showSeusChamados,
+  tecChamados,
+  chamadosDoTecnico,
+  setShowSeusChamados,
+}) {
   const [filtroAtivo, setFiltroAtivo] = useState("EM_ANDAMENTO");
 
   function finalizarOuRemoverChamado(chamado, status) {
@@ -16,7 +21,9 @@ function SeusChamados({ showSeusChamados, tecChamados, chamadosDoTecnico, setSho
         prioridade: chamado.prioridade,
         categoria: chamado.categoria,
         status: status,
-        tecnico: tecnico.id,
+        tecnico: {
+          id: tecnico.id,
+        },
         usuario: {
           id: chamado.usuario.id,
         },
@@ -100,7 +107,9 @@ function SeusChamados({ showSeusChamados, tecChamados, chamadosDoTecnico, setSho
               </div>
               <div className="seusChamados-buttons">
                 <button
-                  className={`btn-verde ${filtroAtivo === "FINALIZACAO_PENDENTE" ? "desativado" : ""}`}
+                  className={`btn-verde ${
+                    filtroAtivo === "FINALIZACAO_PENDENTE" ? "desativado" : ""
+                  }`}
                   onClick={() =>
                     finalizarOuRemoverChamado(chamado, "FINALIZACAO_PENDENTE")
                   }

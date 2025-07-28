@@ -22,8 +22,15 @@
   visibility: visible;
 }
 .novoChamado-container img {
-  width: 80px;
+  width: 120px;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+.novoChamado-container > p{
+  font-weight: 600;
+  font-size: 10px;
+  width: 100%;
+  margin: -5px 0 -10px 10px ;
+  color: red;
 }
 .close-icon {
   position: absolute;

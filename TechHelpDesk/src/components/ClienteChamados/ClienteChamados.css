@@ -14,26 +14,31 @@
   width: 100%;
   padding: 0 20px 0 20px;
 }
-.clienteChamados-header-title{
+.clienteChamados-header-title {
   display: flex;
   gap: 10px;
 }
 .status-em-aberto {
-  color: #FF0004;
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
-  font-weight: bold;
+  color: #d4a017;
 }
 
 .status-concluido {
-  color: #4CFF67;
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
-  font-weight: bold;
+  color: #2e8b57;
 }
 
 .status-em-andamento {
-  color: #FBFF04;
+  color: #227c9d;
+}
+
+.status-em-andamento,
+.status-finalizacao-pendente,
+.status-concluido,
+.status-em-aberto {
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
   font-weight: bold;
+}
+.status-finalizacao-pendente {
+  color: #cc7722;
 }
 .add-icon {
   cursor: pointer;
@@ -84,4 +89,10 @@
 }
 .clienteChamados-content-data p {
   font-size: 14px;
+}
+.concluir-chamado-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
 }

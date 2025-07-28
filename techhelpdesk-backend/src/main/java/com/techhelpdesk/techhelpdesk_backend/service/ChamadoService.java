@@ -1,5 +1,6 @@
 package com.techhelpdesk.techhelpdesk_backend.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.techhelpdesk.techhelpdesk_backend.entities.Chamado;
+import com.techhelpdesk.techhelpdesk_backend.entities.Status;
 import com.techhelpdesk.techhelpdesk_backend.entities.Usuario;
 import com.techhelpdesk.techhelpdesk_backend.repository.ChamadoRepository;
 import com.techhelpdesk.techhelpdesk_backend.repository.UsuarioRepository;
@@ -30,14 +32,18 @@ public class ChamadoService {
 
     public Chamado atualizarChamado(Long id, Chamado chamado) {
         Chamado chamadoExistente = chamadoRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Chamado não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Chamado não encontrado"));
 
         chamadoExistente.setStatus(chamado.getStatus());
         if (chamado.getTecnico() != null && chamado.getTecnico().getId() != null) {
-        Usuario tecnico = usuarioRepository.findById(chamado.getTecnico().getId())
-            .orElseThrow(() -> new RuntimeException("Técnico não encontrado"));
-        chamadoExistente.setTecnico(tecnico);
-    }
+            Usuario tecnico = usuarioRepository.findById(chamado.getTecnico().getId())
+                    .orElseThrow(() -> new RuntimeException("Técnico não encontrado"));
+            chamadoExistente.setTecnico(tecnico);
+        }
+
+        if (chamado.getStatus() == Status.CONCLUIDO) {
+            chamadoExistente.setDataConclusao(LocalDateTime.now());
+        }
 
         return chamadoRepository.save(chamadoExistente);
     }
@@ -73,7 +79,7 @@ public class ChamadoService {
         return chamadoRepository.findById(id);
     }
 
-    public List<Chamado> chamadosDoTecnico(UUID id, List<String> status){
+    public List<Chamado> chamadosDoTecnico(UUID id, List<String> status) {
         return chamadoRepository.findByTecnicoIdAndStatusIn(id, status);
     }
 

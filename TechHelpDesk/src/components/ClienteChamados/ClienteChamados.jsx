@@ -1,9 +1,43 @@
 import { useEffect, useState } from "react";
 import "./ClienteChamados.css";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 function ClienteChamados({ setShowNovoChamado }) {
   const [chamados, setChamados] = useState([]);
   const [abertos, setAbertos] = useState({});
+
+  function concluirChamado(chamado, status) {
+    const tecnico = JSON.parse(localStorage.getItem("usuario"));
+    console.log("tecnico existe? ", tecnico);
+
+    fetch(`http://localhost:8080/chamados/atualizar/${chamado.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tecnico.token}`,
+      },
+      body: JSON.stringify({
+        titulo: chamado.titulo,
+        descricao: chamado.descricao,
+        prioridade: chamado.prioridade,
+        categoria: chamado.categoria,
+        status: status,
+        tecnico: {
+          id: tecnico.id,
+        },
+        usuario: {
+          id: chamado.usuario.id,
+        },
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          buscarChamados();
+        }
+      })
+      .catch((err) => console.error("Erro ao atender chamado:", err));
+  }
 
   const buscarChamados = () => {
     fetch("http://localhost:8080/chamados/meus-chamados", {
@@ -67,7 +101,10 @@ function ClienteChamados({ setShowNovoChamado }) {
                 .toLowerCase()
                 .replace("_", "-")}`}
             >
-              {chamado.status}
+              {chamado.status
+                .toLowerCase()
+                .replaceAll("_", " ")
+                .replace(/\b\w/g, (c) => c.toUpperCase())}
             </p>
           </div>
           <div
@@ -80,24 +117,53 @@ function ClienteChamados({ setShowNovoChamado }) {
                 <b>ID:</b> {chamado.id}
               </p>
               <p>
-                <b>Categoria:</b> Hardware
+                <b>Categoria:</b> {chamado.categoria}
               </p>
             </div>
             <div className="clienteChamados-content-data">
               <p>
-                <b>Prioridade:</b> Alta
+                <b>Prioridade:</b> {chamado.prioridade}
               </p>
               <p>
-                <b>Criação:</b> 2024-12-01
+                <b>Criação:</b>{" "}
+                {format(new Date(chamado.dataCriacao), "dd/MM/yyyy HH:mm", {
+                  locale: ptBR,
+                })}
               </p>
             </div>
             <div className="clienteChamados-content-data">
               <p>
-                <b>Técnico Responsável:</b> João
+                <b>Técnico Responsável:</b>{" "}
+                {chamado.tecnico ? chamado.tecnico.primeiroNome : "A definir"}
               </p>
               <p>
-                <b>Conclusão:</b> —
+                <b>Conclusão:</b>{" "}
+                {format(new Date(chamado.dataConclusao), "dd/MM/yyyy HH:mm", {
+                  locale: ptBR,
+                })}
               </p>
+            </div>
+            <div className="clienteChamados-content-data">
+              <p>
+                <b></b>
+              </p>
+              {chamado.status === "FINALIZACAO_PENDENTE" && (
+                <div className="concluir-chamado-btn">
+                  <b>Seu chamado foi atendido?</b>
+                  <button
+                    className="btn-verde"
+                    onClick={() => concluirChamado(chamado, "CONCLUIDO")}
+                  >
+                    <i className="fi fi-br-check"></i>
+                  </button>
+                  <button
+                    className="btn-vermelho"
+                    onClick={() => concluirChamado(chamado, "EM_ANDAMENTO")}
+                  >
+                    <i className="fi fi-br-cross"></i>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

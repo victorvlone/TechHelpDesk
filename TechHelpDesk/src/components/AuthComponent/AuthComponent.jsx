@@ -35,11 +35,12 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
         if (data.token) {
           const payload = JSON.parse(atob(data.token.split(".")[1])); // decodifica o JWT
           const tipo = payload.role || payload.tipoDeUsuario || "CLIENTE"; // depende de como você construiu o JWT
+          const id = payload.id;
 
-          setUsuarioLogado({ tipo, token: data.token });
+          setUsuarioLogado({ tipo, id, token: data.token });
           localStorage.setItem(
             "usuario",
-            JSON.stringify({ tipo, token: data.token })
+            JSON.stringify({ tipo, id, token: data.token })
           );
 
           console.log("Login bem-sucedido!");

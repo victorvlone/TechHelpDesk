@@ -8,9 +8,11 @@ function Header({ setShowSidebar, setChamadoPesquisado }) {
   const [showSeusChamados, setShowSeusChamados] = useState(false);
   const [showUserOptions, setShowUserOptions] = useState(false);
   const [tecChamados, setTecChamados] = useState([]);
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   function chamadosDoTecnico(status) {
     const tecnico = JSON.parse(localStorage.getItem("usuario"));
+    console.log("ID do técnico usado na requisição:", tecnico.id);
     fetch(`http://localhost:8080/chamados/tecnico/chamados`, {
       method: "POST",
       headers: {
@@ -18,9 +20,7 @@ function Header({ setShowSidebar, setChamadoPesquisado }) {
         Authorization: `Bearer ${tecnico.token}`,
       },
       body: JSON.stringify({
-        tecnico: {
-          id: tecnico.id,
-        },
+        id: tecnico.id,
         status: [status],
       }),
     })
@@ -143,16 +143,18 @@ function Header({ setShowSidebar, setChamadoPesquisado }) {
             <i className="fi fi-sr-user"></i>
             <p>Perfil</p>
           </div>
-          <div
-            className="user-options-option"
-            onClick={() => {
-              setShowSeusChamados(true);
-              chamadosDoTecnico("EM_ANDAMENTO");
-            }}
-          >
-            <i className="fi fi-sr-phone-office"></i>
-            <p>Seus chamados</p>
-          </div>
+          {usuario?.tipo === "TECNICO" && (
+            <div
+              className="user-options-option"
+              onClick={() => {
+                setShowSeusChamados(true);
+                chamadosDoTecnico("EM_ANDAMENTO");
+              }}
+            >
+              <i className="fi fi-sr-phone-office"></i>
+              <p>Seus chamados</p>
+            </div>
+          )}
           <div className="user-options-option logout">
             <i className="fi fi-br-sign-out-alt"></i>
             <p>Sair</p>

@@ -5,7 +5,7 @@ function ChamadoSleecionado({ chamadoClicado, atualizarChamados }) {
   const [botaoDesativado, setBotaoDesativado] = useState(false);
   function atenderChamado(chamado) {
     const tecnico = JSON.parse(localStorage.getItem("usuario"));
-    console.log("Token atual:", tecnico.token);
+    console.log("tecnico existe? ", tecnico)
 
     fetch(`http://localhost:8080/chamados/atualizar/${chamado.id}`, {
       method: "PUT",

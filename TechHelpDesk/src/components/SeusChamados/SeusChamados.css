@@ -117,7 +117,13 @@
   justify-content: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
+  transition: width 0.2s ease, height 0.2s ease;
 }
+.btn-verde:hover,
+.btn-vermelho:hover{
+  width: 50px;
+  height: 50px;
+} 
 .btn-verde.desativado {
   background-color: rgb(4, 80, 4); /* verde/azul mais escuro */
   cursor: not-allowed;

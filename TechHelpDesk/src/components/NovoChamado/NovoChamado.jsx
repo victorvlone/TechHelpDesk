@@ -7,10 +7,22 @@ function NovoChamado({ showNovoChamado, setShowNovoChamado }) {
   const [prioridade, setPrioridade] = useState("BAIXA");
   const [categoria, setCategoria] = useState("SOFTWARE");
   const [status, setStatus] = useState("EM_ABERTO");
+  const [tituloError, setTituloError] = useState(false);
+  const [descricaoError, setDescricaoError] = useState(false);
 
   const criarChamado = (e) => {
     e.preventDefault();
-    const cliente = JSON.parse(localStorage.getItem("usuario")); 
+
+    if (titulo === "") {
+      setTituloError(true);
+      return;
+    }
+
+    if (descricao === "") {
+      setDescricaoError(true);
+      return;
+    }
+    const cliente = JSON.parse(localStorage.getItem("usuario"));
     fetch("http://localhost:8080/chamados/novo", {
       method: "POST",
       headers: {
@@ -45,7 +57,7 @@ function NovoChamado({ showNovoChamado, setShowNovoChamado }) {
 
   return (
     <div className={`novoChamado-container ${showNovoChamado ? "show" : ""}`}>
-      <img src="/assets/images/logo.png" alt="" />
+      <img src="/assets/images/logo-name.png" alt="" />
       <i
         className="fi fi-bs-cross close-icon"
         onClick={() => setShowNovoChamado(false)}
@@ -56,10 +68,11 @@ function NovoChamado({ showNovoChamado, setShowNovoChamado }) {
           type="text"
           placeholder="Titulo"
           value={titulo}
-          onChange={(e) => setTitulo(e.target.value)}
+          onChange={(e) => {setTitulo(e.target.value); setTituloError(false)}}
           required
         />
       </div>
+      {tituloError && <p>Digite um título para o seu chamado.</p>}
       <div className="novoChamado-input">
         <label htmlFor="">Descrição:</label>
         <textarea
@@ -68,10 +81,14 @@ function NovoChamado({ showNovoChamado, setShowNovoChamado }) {
           maxLength={500}
           placeholder="Descreva seu problema"
           value={descricao}
-          onChange={(e) => setDescricao(e.target.value)}
+          onChange={(e) => {
+            setDescricao(e.target.value);
+            setDescricaoError(false);
+          }}
           required
         />
       </div>
+      {descricaoError && <p>Descreva seu problema para abrir seu chamado.</p>}
       <div className="novoChamado-input">
         <label htmlFor="">Prioridade:</label>
         <select
