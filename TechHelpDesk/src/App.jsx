@@ -51,14 +51,18 @@ function App() {
         />
         {usuarioLogado.tipo === "TECNICO" && (
           <>
-            <ChamadoSleecionado chamadoClicado={chamadoClicado}   atualizarChamados={atualizarChamados} />
+            <ChamadoSleecionado
+              chamadoClicado={chamadoClicado}
+              atualizarChamados={atualizarChamados}
+            />
             <FiltrosAplicados filtros={filtros} setFiltros={setFiltros} />
             <Table
               filtros={filtros}
               setChamadoClicado={setChamadoClicado}
               chamadoClicado={chamadoClicado}
               chamadoPesquisado={chamadoPesquisado}
-                chamadosAtualizados={chamadosAtualizados}
+              chamadosAtualizados={chamadosAtualizados}
+              setShowSidebar={setShowSidebar}
             />
           </>
         )}

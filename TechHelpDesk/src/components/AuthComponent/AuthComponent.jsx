@@ -8,33 +8,52 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [tipoDeUsuario, setTipoDeUsuario] = useState("CLIENTE");
+
   const [isLogin, setIsLogin] = useState(false);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginSenha, setLoginSenha] = useState("");
+
+  const [primeiroNomeError, setPrimeiroNomeError] = useState(false);
+  const [ultimoNomeError, setUltimoNomeError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [senhaError, setSenhaError] = useState(false);
+  const [senhaConfirmError, setSenhaConfirmError] = useState(false);
+  const [emailPasswordError, setEmailPasswordError] = useState(false);
 
   const confirmarSenhasIguais = () => {
     if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem!");
+      setSenhaConfirmError(true);
       return false;
     }
     return true;
   };
 
+  const emailValido = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
   const handleLogin = (e) => {
     e.preventDefault();
+    if (loginEmail === "" || !emailValido(loginEmail)) {
+      setEmailError(true);
+      return;
+    } else if (loginSenha === "") {
+      setSenhaError(true);
+      return;
+    }
     fetch("http://localhost:8080/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email,
-        senha,
+        email: loginEmail,
+        senha: loginSenha,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.token) {
-          const payload = JSON.parse(atob(data.token.split(".")[1])); // decodifica o JWT
-          const tipo = payload.role || payload.tipoDeUsuario || "CLIENTE"; // depende de como você construiu o JWT
+          const payload = JSON.parse(atob(data.token.split(".")[1]));
+          const tipo = payload.role || payload.tipoDeUsuario || "CLIENTE";
           const id = payload.id;
 
           setUsuarioLogado({ tipo, id, token: data.token });
@@ -44,10 +63,9 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
           );
 
           console.log("Login bem-sucedido!");
-          console.log("Tipo de usuário recebido:", `"${data.tipoDeUsuario}"`);
-          console.log(usuarioLogado);
         } else {
           console.error("Erro: token não recebido");
+          setEmailPasswordError(true);
         }
       })
 
@@ -58,6 +76,20 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (primeiroNome === "") {
+      setPrimeiroNomeError(true);
+      return;
+    } else if (ultimoNome === "") {
+      setUltimoNomeError(true);
+      return;
+    } else if (email === "" || !emailValido(email)) {
+      setEmailError(true);
+      return;
+    } else if (senha === "") {
+      setSenhaError(true);
+      return;
+    }
     if (!confirmarSenhasIguais()) return;
     fetch("http://localhost:8080/auth/register", {
       method: "POST",
@@ -77,6 +109,11 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
         if (data.success) {
           console.log("Usuário cadastrado com sucesso!");
           setIsLogin(true);
+          setPrimeiroNome("");
+          setUltimoNome("");
+          setEmail("");
+          setSenha("");
+          setConfirmarSenha("");
         } else {
           console.error("Erro ao cadastrar usuário:", data.message);
         }
@@ -89,7 +126,7 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
   return (
     <div className="auth-container">
       <div className="auth-content">
-        <img src="../assets/images/logo.png" alt="" />
+        <img src="../assets/images/logo-name.png" alt="" />
         <div className={`register-container ${isLogin ? "" : "show"}`}>
           <div className="completeName-container">
             <div className="auth-input-container">
@@ -98,8 +135,12 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
                 type="text"
                 placeholder="Primeiro nome"
                 value={primeiroNome}
-                onChange={(e) => setPrimeiroNome(e.target.value)}
+                onChange={(e) => {
+                  setPrimeiroNome(e.target.value);
+                  setPrimeiroNomeError(false);
+                }}
               />
+              {primeiroNomeError && <p>Campo obrigatório.</p>}
             </div>
             <div className="auth-input-container">
               <label htmlFor="ultimoNome">Ultimo nome</label>
@@ -107,8 +148,12 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
                 type="text"
                 placeholder="Ultimo nome"
                 value={ultimoNome}
-                onChange={(e) => setUltimoNome(e.target.value)}
+                onChange={(e) => {
+                  setUltimoNome(e.target.value);
+                  setUltimoNomeError(false);
+                }}
               />
+              {ultimoNomeError && <p>Campo obrigatório.</p>}
             </div>
           </div>
           <div className="auth-input-container">
@@ -117,26 +162,38 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
               type="text"
               placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailError(false);
+              }}
             />
+            {emailError && <p>Digite um e-mail válido.</p>}
           </div>
           <div className="auth-input-container">
             <label htmlFor="senha">Senha</label>
             <input
-              type="text"
+              type="password"
               placeholder="Senha"
               value={senha}
-              onChange={(e) => setSenha(e.target.value)}
+              onChange={(e) => {
+                setSenha(e.target.value);
+                setSenhaError(false);
+              }}
             />
+            {senhaError && <p>O campo de senha é obrigatório.</p>}
           </div>
           <div className="auth-input-container">
             <label htmlFor="ConfirmarSenha">Confirme a senha</label>
             <input
-              type="text"
+              type="password"
               placeholder="Confirme a senha"
               value={confirmarSenha}
-              onChange={(e) => setConfirmarSenha(e.target.value)}
+              onChange={(e) => {
+                setConfirmarSenha(e.target.value);
+                setSenhaConfirmError(false);
+              }}
             />
+            {senhaConfirmError && <p>As senhas não coincidem.</p>}
           </div>
           <div className="auth-input-container">
             <label htmlFor="tipoDeUsuario">TIpo de Usuario</label>
@@ -161,19 +218,22 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
             <input
               type="text"
               placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={loginEmail}
+              onChange={(e) => setLoginEmail(e.target.value)}
             />
+            {emailError && <p>Digite um e-mail válido.</p>}
           </div>
           <div className="auth-input-container">
             <label htmlFor="senhaLogin">Senha</label>
             <input
               type="password"
               placeholder="Senha"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
+              value={loginSenha}
+              onChange={(e) => setLoginSenha(e.target.value)}
             />
           </div>
+          {senhaError && <p>Digite a senha.</p>}
+          {emailPasswordError && <p>Email ou senha incorretos.</p>}
           <button type="button" onClick={handleLogin}>
             Entrar
           </button>

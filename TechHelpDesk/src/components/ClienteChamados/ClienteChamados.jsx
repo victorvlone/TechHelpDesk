@@ -138,9 +138,15 @@ function ClienteChamados({ setShowNovoChamado }) {
               </p>
               <p>
                 <b>Conclusão:</b>{" "}
-                {format(new Date(chamado.dataConclusao), "dd/MM/yyyy HH:mm", {
-                  locale: ptBR,
-                })}
+                {chamado.dataConclusao
+                  ? format(
+                      new Date(chamado.dataConclusao),
+                      "dd/MM/yyyy HH:mm",
+                      {
+                        locale: ptBR,
+                      }
+                    )
+                  : ""}
               </p>
             </div>
             <div className="clienteChamados-content-data">

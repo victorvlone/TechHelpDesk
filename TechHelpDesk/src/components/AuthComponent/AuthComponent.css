@@ -1,18 +1,16 @@
-.auth-container{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: url(../../../public/assets/images/ceuAzul-background.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-
+.auth-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url(../../../public/assets/images/ceuAzul-background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .auth-content img {
-  width: 68px;
-  height: 54px;
+  width: 120px;
 }
 .auth-content {
   width: 402px;
@@ -26,7 +24,8 @@
   align-items: center;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-.register-container, .login-container {
+.register-container,
+.login-container {
   width: 100%;
   display: flex;
   opacity: 0;
@@ -37,10 +36,11 @@
   transition: opacity 0.2s ease, visibility 0.2s ease, max-height 0.2s ease;
   gap: 14px;
 }
-.register-container.show, .login-container.show {
+.register-container.show,
+.login-container.show {
   opacity: 1;
   visibility: visible;
-  max-height: 500px;
+  max-height: 600px;
 }
 .auth-input-container {
   display: flex;
@@ -83,6 +83,12 @@
   font-family: "Poppins", sans-serif;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
   cursor: pointer;
+}
+.auth-input-container > p {
+  font-weight: 600;
+  color: red;
+  margin-top: 5px;
+  padding-left: 10px;
 }
 .auth-content button {
   width: 80%;

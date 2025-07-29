@@ -7,6 +7,7 @@ function Table({
   chamadoClicado,
   chamadoPesquisado,
   chamadosAtualizados,
+  setShowSidebar,
 }) {
   const [chamados, setChamados] = useState([]);
 
@@ -22,7 +23,14 @@ function Table({
       },
       body: JSON.stringify(filtros || {}),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          setShowSidebar(false);
+          return res.json();
+        } else {
+          throw new Error("Erro na requisição");
+        }
+      })
       .then((data) => {
         setChamados(data);
         console.log("chamados recebidos: ", data);
