@@ -32,7 +32,7 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (loginEmail === "" || !emailValido(loginEmail)) {
+    if (loginEmail === "") {
       setEmailError(true);
       return;
     } else if (loginSenha === "") {
