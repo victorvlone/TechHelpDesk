@@ -6,6 +6,8 @@ function Sidebar({ showSidebar, setShowSidebar, setFiltros }) {
   const [showPrioridade, setShowPrioridade] = useState(false);
   const [showCategoria, setShowCategoria] = useState(false);
 
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+
   const handleFiltroClick = (campo, valor) => {
     setFiltros((prev) => ({
       ...prev,
@@ -24,8 +26,8 @@ function Sidebar({ showSidebar, setShowSidebar, setFiltros }) {
           <img src="/assets/images/logo-name.png" alt="" />
         </div>
         <div className="sidebar-header-data">
-          <h4>João Victor</h4>
-          <p>Técnico</p>
+          <h4>{usuario.nome}</h4>
+          <p>{usuario.tipo}</p>
         </div>
       </div>
       <div className="sidebar-nav">
@@ -40,7 +42,10 @@ function Sidebar({ showSidebar, setShowSidebar, setFiltros }) {
             </div>
             <ul className={`sidebar-options ${showSituacao ? "show" : ""}`}>
               {opcoesSituacao.map((opcao) => (
-                <li key={opcao} onClick={() => handleFiltroClick("status", opcao)}>
+                <li
+                  key={opcao}
+                  onClick={() => handleFiltroClick("status", opcao)}
+                >
                   {opcao.replace("_", " ").toLowerCase()}
                 </li>
               ))}
@@ -73,9 +78,12 @@ function Sidebar({ showSidebar, setShowSidebar, setFiltros }) {
               <p className="nav-title">Prioridade</p>
               <i className="fi fi-sr-play"></i>
             </div>
-             <ul className={`sidebar-options ${showPrioridade ? "show" : ""}`}>
+            <ul className={`sidebar-options ${showPrioridade ? "show" : ""}`}>
               {opcoesPrioridade.map((opcao) => (
-                <li key={opcao} onClick={() => handleFiltroClick("prioridade", opcao)}>
+                <li
+                  key={opcao}
+                  onClick={() => handleFiltroClick("prioridade", opcao)}
+                >
                   {opcao.toLowerCase()}
                 </li>
               ))}

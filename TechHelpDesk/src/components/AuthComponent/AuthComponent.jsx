@@ -55,11 +55,13 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
           const payload = JSON.parse(atob(data.token.split(".")[1]));
           const tipo = payload.role || payload.tipoDeUsuario || "CLIENTE";
           const id = payload.id;
+          const nome = payload.nome;
+          const sobrenome = payload.sobreNome;
 
-          setUsuarioLogado({ tipo, id, token: data.token });
+          setUsuarioLogado({ tipo, id, nome, sobrenome, token: data.token });
           localStorage.setItem(
             "usuario",
-            JSON.stringify({ tipo, id, token: data.token })
+            JSON.stringify({ tipo, id, nome, sobrenome, token: data.token })
           );
 
           console.log("Login bem-sucedido!");
