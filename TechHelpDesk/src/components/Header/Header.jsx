@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Header.css";
 import SeusChamados from "../SeusChamados/SeusChamados";
 
-function Header({ setShowSidebar, setChamadoPesquisado }) {
+function Header({ setShowSidebar, setChamadoPesquisado, onLogout }) {
   const [idPesquisado, setIdPesquisado] = useState("");
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [showSeusChamados, setShowSeusChamados] = useState(false);
@@ -155,7 +155,7 @@ function Header({ setShowSidebar, setChamadoPesquisado }) {
               <p>Seus chamados</p>
             </div>
           )}
-          <div className="user-options-option logout">
+          <div className="user-options-option logout" onClick={onLogout}>
             <i className="fi fi-br-sign-out-alt"></i>
             <p>Sair</p>
           </div>

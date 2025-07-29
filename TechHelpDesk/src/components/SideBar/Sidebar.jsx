@@ -38,7 +38,7 @@ function Sidebar({ showSidebar, setShowSidebar, setFiltros }) {
               onClick={() => setShowSituacao((prev) => !prev)}
             >
               <p className="nav-title">Situação</p>
-              <i className="fi fi-sr-play"></i>
+              <i className={`fi fi-sr-caret-down ${showSituacao ? "invert-icon" : ""}`}></i>
             </div>
             <ul className={`sidebar-options ${showSituacao ? "show" : ""}`}>
               {opcoesSituacao.map((opcao) => (
@@ -57,7 +57,7 @@ function Sidebar({ showSidebar, setShowSidebar, setFiltros }) {
               onClick={() => setShowCategoria((prev) => !prev)}
             >
               <p className="nav-title">Categoria</p>
-              <i className="fi fi-sr-play"></i>
+              <i className={`fi fi-sr-caret-down ${showCategoria ? "invert-icon" : ""}`}></i>
             </div>
             <ul className={`sidebar-options ${showCategoria ? "show" : ""}`}>
               {opcoesCategoria.map((opcao) => (
@@ -76,7 +76,7 @@ function Sidebar({ showSidebar, setShowSidebar, setFiltros }) {
               onClick={() => setShowPrioridade((prev) => !prev)}
             >
               <p className="nav-title">Prioridade</p>
-              <i className="fi fi-sr-play"></i>
+              <i className={`fi fi-sr-caret-down ${showPrioridade ? "invert-icon" : ""}`}></i>
             </div>
             <ul className={`sidebar-options ${showPrioridade ? "show" : ""}`}>
               {opcoesPrioridade.map((opcao) => (

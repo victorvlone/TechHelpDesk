@@ -84,5 +84,9 @@
   cursor: pointer;
 }
 .option-container i {
-  font-size: 10px;
+  font-size: 20px;
+}
+.invert-icon {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
 }

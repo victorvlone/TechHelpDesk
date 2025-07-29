@@ -18,6 +18,11 @@ function App() {
   const [chamadoPesquisado, setChamadoPesquisado] = useState({});
   const [chamadosAtualizados, setChamadosAtualizados] = useState(false);
 
+  const logout = () => {
+    localStorage.removeItem("usuario");
+    window.location.href = "/login";
+  };
+
   function atualizarChamados() {
     setChamadosAtualizados((prev) => !prev);
   }
@@ -48,6 +53,7 @@ function App() {
         <Header
           setShowSidebar={setShowSidebar}
           setChamadoPesquisado={setChamadoPesquisado}
+          onLogout={logout}
         />
         {usuarioLogado.tipo === "TECNICO" && (
           <>
