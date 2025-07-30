@@ -22,7 +22,7 @@
   visibility: visible;
 }
 .novoChamado-container img {
-  width: 120px;
+  width: 50px;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
 }
 .novoChamado-container > p{

@@ -128,7 +128,7 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
   return (
     <div className="auth-container">
       <div className="auth-content">
-        <img src="../assets/images/logo-icon.png" alt="" />
+        <img src="../assets/images/logo-icon-blue.png" alt="" />
         <div className={`register-container ${isLogin ? "" : "show"}`}>
           <div className="completeName-container">
             <div className="auth-input-container">

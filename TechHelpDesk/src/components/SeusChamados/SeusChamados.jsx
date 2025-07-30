@@ -1,11 +1,7 @@
 import { useState } from "react";
 import "./SeusChamados.css";
 
-function SeusChamados({
-  tecChamados,
-  chamadosDoTecnico,
-  setShowSeusChamados,
-}) {
+function SeusChamados({ tecChamados, chamadosDoTecnico, setShowSeusChamados, darkMode }) {
   const [filtroAtivo, setFiltroAtivo] = useState("EM_ANDAMENTO");
 
   function finalizarOuRemoverChamado(chamado, status) {
@@ -99,7 +95,14 @@ function SeusChamados({
         {tecChamados.length > 0 ? (
           tecChamados.map((chamado) => (
             <div key={chamado.id} className="seusChamados-list-item">
-              <img src="../assets/images/icon-emAndamento.png" alt="" />
+              <img
+                src={
+                  darkMode
+                    ? "../assets/images/icon-emAndamento-light.png"
+                    : "../assets/images/icon-emAndamento.png"
+                }
+                alt=""
+              />
               <div className="seusChamados-list-title">
                 <h5>{chamado.titulo}</h5>
                 <p>{chamado.descricao}</p>

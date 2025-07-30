@@ -5,7 +5,13 @@ import UserProfile from "../UserProfile/UserProfile";
 import { useTransition, animated } from "@react-spring/web";
 import UserOptions from "../UserOptions/UserOptions";
 
-function Header({ setShowSidebar, setChamadoPesquisado, onLogout }) {
+function Header({
+  setShowSidebar,
+  setChamadoPesquisado,
+  onLogout,
+  setDarkMode,
+  darkMode,
+}) {
   const [idPesquisado, setIdPesquisado] = useState("");
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [showSeusChamados, setShowSeusChamados] = useState(false);
@@ -156,7 +162,10 @@ function Header({ setShowSidebar, setChamadoPesquisado, onLogout }) {
 
         <div className="user-content">
           <div className="user-content-container">
-            <div className="header-icon-container">
+            <div
+              className="header-icon-container"
+              onClick={() => setDarkMode((prev) => !prev)}
+            >
               <i className="fi fi-br-moon-stars header-icon"></i>
             </div>
             <div className="header-icon-container">
@@ -191,6 +200,7 @@ function Header({ setShowSidebar, setChamadoPesquisado, onLogout }) {
           tecChamados,
           chamadosDoTecnico,
           setShowSeusChamados,
+          darkMode,
         })}
       </div>
     </div>

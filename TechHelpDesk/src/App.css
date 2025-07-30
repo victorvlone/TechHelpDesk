@@ -1,6 +1,6 @@
 .tecnico-content {
   padding: 20px;
-  padding-top:  0;
+  padding-top: 0;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -19,6 +19,29 @@
   z-index: 0;
   pointer-events: none; /* permite clicar no conteúdo abaixo */
 }
+.dark .background-overlay {
+  opacity: 0;
+}
+.dark .chamados-content, .dark .clienteChamados-header {
+  color: white;
+}
+.dark .table-container,
+.dark .sidebar-container,
+.dark .search-bar,
+.dark .seusChamados-container,
+.dark .user-options-container,
+.dark .user-profile-container,
+.dark .clienteChamados-content,
+.dark .novoChamado-container {
+  background: #1b2936 !important;
+  color: white;
+}
+.dark .seusChamados-list-item:hover,
+.dark .novoChamado-input textarea,
+.dark .novoChamado-input input, .dark .novoChamado-input select {
+  background-color: #141d26;
+  color: white;
+}
 
 .container {
   width: 80%;
@@ -26,5 +49,5 @@
 }
 
 .tecnico-content.left {
-    transform: translateX(175px);
+  transform: translateX(175px);
 }

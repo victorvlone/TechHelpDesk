@@ -11,7 +11,7 @@
 }
 .auth-content img {
   width: 60px;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
 }
 .auth-content {
   width: 402px;

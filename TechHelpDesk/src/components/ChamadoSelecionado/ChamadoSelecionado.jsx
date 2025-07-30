@@ -5,7 +5,7 @@ function ChamadoSleecionado({ chamadoClicado, atualizarChamados }) {
   const [botaoDesativado, setBotaoDesativado] = useState(false);
   function atenderChamado(chamado) {
     const tecnico = JSON.parse(localStorage.getItem("usuario"));
-    console.log("tecnico existe? ", tecnico)
+    console.log("tecnico existe? ", tecnico);
 
     fetch(`http://localhost:8080/chamados/atualizar/${chamado.id}`, {
       method: "PUT",
@@ -36,13 +36,14 @@ function ChamadoSleecionado({ chamadoClicado, atualizarChamados }) {
       .catch((err) => console.error("Erro ao atender chamado:", err));
   }
 
-useEffect(() => {
-  if (chamadoClicado && chamadoClicado.status === "EM_ANDAMENTO") {
-    setBotaoDesativado(true);
-  } else {
-    setBotaoDesativado(false);
-  }
-}, [chamadoClicado]);
+  useEffect(() => {
+    if (chamadoClicado && chamadoClicado.status === "EM_ANDAMENTO") {
+      setBotaoDesativado(true);
+    } else {
+      setBotaoDesativado(false);
+    }
+  }, [chamadoClicado]);
+  
   return (
     <div
       className={`chamados-container ${

@@ -57,7 +57,7 @@ function NovoChamado({ showNovoChamado, setShowNovoChamado }) {
 
   return (
     <div className={`novoChamado-container ${showNovoChamado ? "show" : ""}`}>
-      <img src="/assets/images/logo-name.png" alt="" />
+      <img src="/assets/images/logo-icon-blue.png" alt="" />
       <i
         className="fi fi-bs-cross close-icon"
         onClick={() => setShowNovoChamado(false)}

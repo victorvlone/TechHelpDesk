@@ -16,6 +16,12 @@ body {
   width: 100%;
   color: var(--cinza);
 }
+.dark body {
+  background: url(../../../public/assets/images/ceuEscuro-background.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
 :root {
   --cinza: #3f4c55;
   --azul: #6eb5e0;

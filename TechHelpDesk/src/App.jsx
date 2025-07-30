@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/SideBar/Sidebar";
@@ -17,6 +17,16 @@ function App() {
   const [chamadoClicado, setChamadoClicado] = useState({});
   const [chamadoPesquisado, setChamadoPesquisado] = useState({});
   const [chamadosAtualizados, setChamadosAtualizados] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    if (darkMode) {
+      html.classList.add("dark");
+    } else {
+      html.classList.remove("dark");
+    }
+  }, [darkMode]);
 
   const logout = () => {
     localStorage.removeItem("usuario");
@@ -41,7 +51,7 @@ function App() {
     <>
       <div className="background-overlay"></div>
 
-      <Sidebar showSidebar={showSidebar} setFiltros={setFiltros} />
+      <Sidebar showSidebar={showSidebar} setFiltros={setFiltros} darkMode={darkMode} />
 
       {usuarioLogado.tipo === "CLIENTE" && (
         <NovoChamado
@@ -54,6 +64,8 @@ function App() {
           setShowSidebar={setShowSidebar}
           setChamadoPesquisado={setChamadoPesquisado}
           onLogout={logout}
+          setDarkMode={setDarkMode}
+          darkMode={darkMode}
         />
         {usuarioLogado.tipo === "TECNICO" && (
           <>

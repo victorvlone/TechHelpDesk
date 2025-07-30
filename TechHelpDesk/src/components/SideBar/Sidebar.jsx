@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Sidebar.css";
 
-function Sidebar({ showSidebar, setShowSidebar, setFiltros }) {
+function Sidebar({ showSidebar, setShowSidebar, setFiltros, darkMode }) {
   const [showSituacao, setShowSituacao] = useState(false);
   const [showPrioridade, setShowPrioridade] = useState(false);
   const [showCategoria, setShowCategoria] = useState(false);
@@ -23,7 +23,7 @@ function Sidebar({ showSidebar, setShowSidebar, setFiltros }) {
     <div className={`sidebar-container ${showSidebar ? "show" : ""}`}>
       <div className="sidebar-header">
         <div className="sidebar-logo">
-          <img src="/assets/images/logo-name.png" alt="" />
+          <img src="/assets/images/logo-icon-blue.png" alt="" />
         </div>
         <div className="sidebar-header-data">
           <h4>{usuario.nome}</h4>
