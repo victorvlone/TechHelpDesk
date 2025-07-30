@@ -1,0 +1,23 @@
+.user-options-container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  font-weight: 600;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+.user-options-option {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.user-options-option:hover {
+  color: #5e96bb;
+}
+.logout {
+  color: red;
+}

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import "./Header.css";
 import SeusChamados from "../SeusChamados/SeusChamados";
+import UserProfile from "../UserProfile/UserProfile";
+import { useTransition, animated } from "@react-spring/web";
+import UserOptions from "../UserOptions/UserOptions";
 
 function Header({ setShowSidebar, setChamadoPesquisado, onLogout }) {
   const [idPesquisado, setIdPesquisado] = useState("");
@@ -9,6 +12,45 @@ function Header({ setShowSidebar, setChamadoPesquisado, onLogout }) {
   const [showUserOptions, setShowUserOptions] = useState(false);
   const [tecChamados, setTecChamados] = useState([]);
   const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+  const transitionUserProfile = useTransition(showUserProfile, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: { duration: 300 },
+  });
+
+  const transitionSeusChamados = useTransition(showSeusChamados, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: { duration: 300 },
+  });
+
+  const transitionUserOptions = useTransition(showUserOptions, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: { duration: 300 },
+  });
+
+  function renderComTransicao(transition, Component, props) {
+    return transition((style, item) =>
+      item ? (
+        <animated.div
+          style={{
+            ...style,
+            position: "absolute",
+            top: "100px",
+            right: 0,
+            zIndex: 3,
+          }}
+        >
+          <Component {...props} />
+        </animated.div>
+      ) : null
+    );
+  }
 
   function chamadosDoTecnico(status) {
     const tecnico = JSON.parse(localStorage.getItem("usuario"));
@@ -74,9 +116,8 @@ function Header({ setShowSidebar, setChamadoPesquisado, onLogout }) {
     const valor = e.target.value;
     setIdPesquisado(valor);
 
-    // Se apagar o valor, limpa o resultado da busca
     if (valor.trim() === "") {
-      setChamadoPesquisado(null); // ou {}
+      setChamadoPesquisado(null);
     }
   }
 
@@ -133,59 +174,24 @@ function Header({ setShowSidebar, setChamadoPesquisado, onLogout }) {
             />
           </div>
         </div>
-        <div
-          className={`user-options-container ${showUserOptions ? "show" : ""}`}
-        >
-          <div
-            className="user-options-option"
-            onClick={() => setShowUserProfile(true)}
-          >
-            <i className="fi fi-sr-user"></i>
-            <p>Perfil</p>
-          </div>
-          {usuario?.tipo === "TECNICO" && (
-            <div
-              className="user-options-option"
-              onClick={() => {
-                setShowSeusChamados(true);
-                chamadosDoTecnico("EM_ANDAMENTO");
-              }}
-            >
-              <i className="fi fi-sr-phone-office"></i>
-              <p>Seus chamados</p>
-            </div>
-          )}
-          <div className="user-options-option logout" onClick={onLogout}>
-            <i className="fi fi-br-sign-out-alt"></i>
-            <p>Sair</p>
-          </div>
-        </div>
-        <div
-          className={`user-profile-container ${showUserProfile ? "show" : ""}`}
-        >
-          <div className="user-profise-banner">
-            <img src="../assets/images/userProfile.png" alt="" />
-          </div>
-          <div className="user-profile-content">
-            <h4>João Victor</h4>
-            <p>Cliente</p>
-          </div>
-          <div
-            className="user-profile-back"
-            onClick={() => setShowUserProfile(false)}
-          >
-            <i className="fi fi-sr-arrow-circle-left"></i>
-            <p>voltar</p>
-          </div>
-        </div>
-        {showSeusChamados && (
-          <SeusChamados
-            showSeusChamados={showSeusChamados}
-            tecChamados={tecChamados}
-            chamadosDoTecnico={chamadosDoTecnico}
-            setShowSeusChamados={setShowSeusChamados}
-          />
-        )}
+        {renderComTransicao(transitionUserOptions, UserOptions, {
+          onLogout,
+          setShowSeusChamados,
+          setShowUserProfile,
+          chamadosDoTecnico,
+          usuario,
+        })}
+
+        {renderComTransicao(transitionUserProfile, UserProfile, {
+          showUserProfile,
+          setShowUserProfile,
+        })}
+
+        {renderComTransicao(transitionSeusChamados, SeusChamados, {
+          tecChamados,
+          chamadosDoTecnico,
+          setShowSeusChamados,
+        })}
       </div>
     </div>
   );

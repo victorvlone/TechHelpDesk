@@ -7,13 +7,7 @@
   align-items: center;
   flex-direction: column;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-  position: absolute;
-  z-index: 3;
-  right: 0;
   padding: 10px;
-  top: 100px;
-  opacity: 0;
-  pointer-events: none;
 }
 .seusChamados-options {
   display: flex;
@@ -33,11 +27,6 @@
 }
 .blue {
   color: #5e96bb;
-}
-.seusChamados-container.show {
-  opacity: 1;
-  pointer-events: auto;
-  transition: opacity 0.5s ease;
 }
 .seuschamados-list {
   width: 100%;

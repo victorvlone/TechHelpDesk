@@ -67,11 +67,11 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
           console.log("Login bem-sucedido!");
         } else {
           console.error("Erro: token não recebido");
-          setEmailPasswordError(true);
         }
       })
 
       .catch((error) => {
+        setEmailPasswordError(true);
         console.error("Erro na requisição:", error);
       });
   };
@@ -128,7 +128,7 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
   return (
     <div className="auth-container">
       <div className="auth-content">
-        <img src="../assets/images/logo-name.png" alt="" />
+        <img src="../assets/images/logo-icon.png" alt="" />
         <div className={`register-container ${isLogin ? "" : "show"}`}>
           <div className="completeName-container">
             <div className="auth-input-container">
@@ -142,7 +142,9 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
                   setPrimeiroNomeError(false);
                 }}
               />
-              {primeiroNomeError && <p>Campo obrigatório.</p>}
+              <p className={`message-error ${primeiroNomeError ? "show" : ""}`}>
+                Campo obrigatório.
+              </p>
             </div>
             <div className="auth-input-container">
               <label htmlFor="ultimoNome">Ultimo nome</label>
@@ -155,7 +157,9 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
                   setUltimoNomeError(false);
                 }}
               />
-              {ultimoNomeError && <p>Campo obrigatório.</p>}
+              <p className={`message-error ${ultimoNomeError ? "show" : ""}`}>
+                Campo obrigatório.
+              </p>
             </div>
           </div>
           <div className="auth-input-container">
@@ -169,7 +173,10 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
                 setEmailError(false);
               }}
             />
-            {emailError && <p>Digite um e-mail válido.</p>}
+
+            <p className={`message-error ${emailError ? "show" : ""}`}>
+              Digite um e-mail válido.
+            </p>
           </div>
           <div className="auth-input-container">
             <label htmlFor="senha">Senha</label>
@@ -182,7 +189,10 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
                 setSenhaError(false);
               }}
             />
-            {senhaError && <p>O campo de senha é obrigatório.</p>}
+
+            <p className={`message-error ${senhaError ? "show" : ""}`}>
+              O campo de senha é obrigatório.
+            </p>
           </div>
           <div className="auth-input-container">
             <label htmlFor="ConfirmarSenha">Confirme a senha</label>
@@ -195,7 +205,10 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
                 setSenhaConfirmError(false);
               }}
             />
-            {senhaConfirmError && <p>As senhas não coincidem.</p>}
+
+            <p className={`message-error ${senhaConfirmError ? "show" : ""}`}>
+              As senhas não coincidem.
+            </p>
           </div>
           <div className="auth-input-container">
             <label htmlFor="tipoDeUsuario">TIpo de Usuario</label>
@@ -221,9 +234,15 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
               type="text"
               placeholder="Email"
               value={loginEmail}
-              onChange={(e) => setLoginEmail(e.target.value)}
+              onChange={(e) => {
+                setLoginEmail(e.target.value);
+                setEmailError(false);
+              }}
             />
-            {emailError && <p>Digite um e-mail válido.</p>}
+
+            <p className={`message-error ${emailError ? "show" : ""}`}>
+              Digite um e-mail válido.
+            </p>
           </div>
           <div className="auth-input-container">
             <label htmlFor="senhaLogin">Senha</label>
@@ -231,11 +250,21 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
               type="password"
               placeholder="Senha"
               value={loginSenha}
-              onChange={(e) => setLoginSenha(e.target.value)}
+              onChange={(e) => {
+                setLoginSenha(e.target.value);
+                setSenhaError(false);
+                setEmailPasswordError(false);
+              }}
             />
+            <p className={`message-error ${senhaError ? "show" : ""}`}>
+              Digite a senha.
+            </p>
+
+            <p className={`message-error ${emailPasswordError ? "show" : ""}`}>
+              Email ou senha incorretos.
+            </p>
           </div>
-          {senhaError && <p>Digite a senha.</p>}
-          {emailPasswordError && <p>Email ou senha incorretos.</p>}
+
           <button type="button" onClick={handleLogin}>
             Entrar
           </button>

@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./SeusChamados.css";
 
 function SeusChamados({
-  showSeusChamados,
   tecChamados,
   chamadosDoTecnico,
   setShowSeusChamados,
@@ -65,7 +64,7 @@ function SeusChamados({
   }
 
   return (
-    <div className={`seusChamados-container ${showSeusChamados ? "show" : ""}`}>
+    <div className="seusChamados-container">
       <h4>Seus chamados</h4>
       <div className="seusChamados-options">
         <h5
