@@ -81,6 +81,7 @@ function Header({
       .then((data) => {
         console.log("Chamado encontrados: ", data);
         setTecChamados(data);
+        console.log("dados que chegaram: ", data);
       })
       .catch((error) => {
         console.error("Erro:", error);

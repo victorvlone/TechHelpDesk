@@ -8,14 +8,14 @@ function ClienteChamados({ setShowNovoChamado }) {
   const [abertos, setAbertos] = useState({});
 
   function concluirChamado(chamado, status) {
-    const tecnico = JSON.parse(localStorage.getItem("usuario"));
-    console.log("tecnico existe? ", tecnico);
+    const cliente = JSON.parse(localStorage.getItem("usuario"));
+    console.log("cliente existe? ", cliente);
 
     fetch(`http://localhost:8080/chamados/atualizar/${chamado.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${tecnico.token}`,
+        Authorization: `Bearer ${cliente.token}`,
       },
       body: JSON.stringify({
         titulo: chamado.titulo,
@@ -23,9 +23,6 @@ function ClienteChamados({ setShowNovoChamado }) {
         prioridade: chamado.prioridade,
         categoria: chamado.categoria,
         status: status,
-        tecnico: {
-          id: tecnico.id,
-        },
         usuario: {
           id: chamado.usuario.id,
         },

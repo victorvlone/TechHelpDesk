@@ -10,7 +10,7 @@ function UserOptions({ onLogout, setShowSeusChamados, setShowUserProfile, chamad
         <i className="fi fi-sr-user"></i>
         <p>Perfil</p>
       </div>
-      {usuario?.tipo === "TECNICO" && (
+      {usuario?.tipodeUsuario === "TECNICO" && (
         <div
           className="user-options-option"
           onClick={() => {

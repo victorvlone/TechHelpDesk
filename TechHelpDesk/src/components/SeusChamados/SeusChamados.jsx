@@ -107,7 +107,7 @@ function SeusChamados({ tecChamados, chamadosDoTecnico, setShowSeusChamados, dar
                 <h5>{chamado.titulo}</h5>
                 <p>{chamado.descricao}</p>
               </div>
-              <div className="seusChamados-buttons">
+              <div className={`seusChamados-buttons ${filtroAtivo === "CONCLUIDO" ? "hiden" : ""}`}>
                 <button
                   className={`btn-verde ${
                     filtroAtivo === "FINALIZACAO_PENDENTE" ? "desativado" : ""

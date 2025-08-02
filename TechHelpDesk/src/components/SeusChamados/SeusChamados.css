@@ -83,6 +83,11 @@
   pointer-events: none;
   transition: opacity .3s ease;
 }
+.seusChamados-buttons.hiden{
+  opacity: 0 !important;
+  pointer-events: none !important;
+  max-height: 0 !important;
+}
 .seusChamados-list-item:hover .seusChamados-buttons {
   opacity: 1;
   pointer-events: auto;

@@ -109,6 +109,7 @@ public class ChamadoController {
 
     @PostMapping("/tecnico/chamados")
     public ResponseEntity<?> postMethodName(@RequestBody FiltroTecnicoDTO filtro) {
+        System.out.println("status que chegou: " + filtro.status());
         List<Chamado> chamados = chamadoService.chamadosDoTecnico(filtro.id(), filtro.status());
         return ResponseEntity.ok(chamados);
     }
