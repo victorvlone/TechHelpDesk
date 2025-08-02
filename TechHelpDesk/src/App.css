@@ -22,7 +22,8 @@
 .dark .background-overlay {
   opacity: 0;
 }
-.dark .chamados-content, .dark .clienteChamados-header {
+.dark .chamados-content,
+.dark .clienteChamados-header {
   color: white;
 }
 .dark .table-container,
@@ -31,16 +32,26 @@
 .dark .seusChamados-container,
 .dark .user-options-container,
 .dark .user-profile-container,
-.dark .clienteChamados-content,
-.dark .novoChamado-container {
+.dark .clienteChamados-content {
   background: #1b2936 !important;
   color: white;
 }
 .dark .seusChamados-list-item:hover,
 .dark .novoChamado-input textarea,
-.dark .novoChamado-input input, .dark .novoChamado-input select {
+.dark .novoChamado-input input,
+.dark .novoChamado-input select, .dark .label-text, .dark .novoChamado-container, .dark .btn-voltar {
   background-color: #141d26;
   color: white;
+}
+.dark .userProfile-edit-banner, .dark .userProfile-edit {
+  color: #1b2936;
+  background-color: white;
+}
+.dark .user-profile-banner img{
+  border: 2px solid #1b2936;
+}
+.dark .edit-icon{
+  color: #141d26;
 }
 
 .container {

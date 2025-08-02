@@ -173,7 +173,11 @@ function Header({
             </div>
             <img
               className="user-icon"
-              src="/assets/images/userProfile.png"
+              src={
+                usuario.fotoDePerfil
+                  ? `http://localhost:8080${usuario.fotoDePerfil}`
+                  : "/assets/images/userProfile.png"
+              }
               alt=""
               onClick={() => {
                 setShowUserOptions((prev) => !prev);

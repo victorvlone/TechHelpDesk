@@ -26,8 +26,8 @@ function Sidebar({ showSidebar, setShowSidebar, setFiltros, darkMode }) {
           <img src="/assets/images/logo-icon-blue.png" alt="" />
         </div>
         <div className="sidebar-header-data">
-          <h4>{usuario.nome}</h4>
-          <p>{usuario.tipo}</p>
+          <h4>{usuario.primeiroNome}</h4>
+          <p>{usuario.tipodeUsuario}</p>
         </div>
       </div>
       <div className="sidebar-nav">

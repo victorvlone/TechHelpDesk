@@ -53,15 +53,34 @@ function AuthComponent({ usuarioLogado, setUsuarioLogado }) {
       .then((data) => {
         if (data.token) {
           const payload = JSON.parse(atob(data.token.split(".")[1]));
-          const tipo = payload.role || payload.tipoDeUsuario || "CLIENTE";
+          const tipodeUsuario =
+            payload.role || payload.tipoDeUsuario || "CLIENTE";
           const id = payload.id;
-          const nome = payload.nome;
-          const sobrenome = payload.sobreNome;
+          const primeiroNome = payload.nome;
+          const segundoNome = payload.sobrenome;
+          const fotoDePerfil = payload.fotoPerfil;
+          const fotoDeCapa = payload.fotoCapa;
 
-          setUsuarioLogado({ tipo, id, nome, sobrenome, token: data.token });
+          setUsuarioLogado({
+            tipodeUsuario,
+            id,
+            primeiroNome,
+            segundoNome,
+            fotoDePerfil,
+            fotoDeCapa,
+            token: data.token,
+          });
           localStorage.setItem(
             "usuario",
-            JSON.stringify({ tipo, id, nome, sobrenome, token: data.token })
+            JSON.stringify({
+              tipodeUsuario,
+              id,
+              primeiroNome,
+              segundoNome,
+              fotoDePerfil,
+              fotoDeCapa,
+              token: data.token,
+            })
           );
 
           console.log("Login bem-sucedido!");

@@ -29,6 +29,8 @@ public class TokenService {
                     .withClaim("tipoDeUsuario", usuario.getTipodeUsuario().toString())
                     .withClaim("nome", usuario.getPrimeiroNome())
                     .withClaim("sobrenome", usuario.getUltimoNome())
+                    .withClaim("fotoPerfil", usuario.getFotoDePerfil())
+                    .withClaim("fotoCapa", usuario.getFotoDeCapa())
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
             return token;

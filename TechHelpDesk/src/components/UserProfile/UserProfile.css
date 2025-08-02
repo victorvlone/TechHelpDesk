@@ -5,29 +5,42 @@
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  transition: height 0.2s ease;
 }
-.user-profise-banner {
-  height: 40%;
+.user-profile-container.expand {
+  height: 370px;
+}
+.user-profile-banner {
+  height: 120px;
   border-radius: 10px 10px 0 0;
-  background: url(../../../public/assets/images/ceuAzul-background.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 }
-.user-profise-banner img {
+.user-profile-banner img {
   border-radius: 50%;
   width: 100px;
+  height: 100px;
   border: 2px solid white;
   position: absolute;
   bottom: -50px;
+  object-fit: cover;
 }
 .user-profile-content {
-  margin-top: 60px;
   text-align: center;
+  opacity: 1;
+  pointer-events: auto;
+  max-height: 200px;
+}
+.user-profile-content.hiden,
+.edit-icon.hiden,
+.user-profile-back.hiden,
+.userProfile-edit.hiden,
+.userProfile-edit-banner.hiden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  max-height: 0 !important;
 }
 .user-profile-content p {
   font-weight: 500;
@@ -59,4 +72,147 @@
 }
 .user-profile-back p {
   font-weight: 600;
+}
+.edit-icon {
+  position: absolute;
+  opacity: 0;
+  font-size: 98px;
+  bottom: -48px;
+  transition: opacity 0.2s ease;
+  color: white;
+}
+.user-profile-banner:hover .edit-icon {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.user-profile-edits {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  opacity: 0;
+  max-height: 0;
+  pointer-events: none;
+}
+.user-profile-edits.show {
+  opacity: 1;
+  max-height: 200px;
+  pointer-events: auto;
+}
+.user-profile-edit-input {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+.user-profile-edit-input label {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  padding-left: 10px;
+  width: 80%;
+}
+.input-file {
+  width: 80%;
+  font-weight: 500;
+}
+.label-text {
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  height: 30px;
+  width: 80%;
+  padding-left: 10px;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+.camera-icon {
+  position: absolute;
+  left: 0;
+  font-size: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.camera-icon-banner {
+  position: absolute;
+  font-size: 20px;
+  top: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.userProfile-edit-banner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  width: 18.9px;
+  height: 18.9px;
+  background-color: white;
+  border-radius: 100px;
+  cursor: pointer;
+}
+.userProfile-edit {
+  position: relative;
+  bottom: -100px;
+  right: -30px;
+  display: flex;
+  align-items: center;
+  width: 18.5px;
+  height: 18.5px;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.userProfile-edit input[type="file"],
+.userProfile-edit-banner input[type="file"] {
+  z-index: 2;
+  opacity: 0;
+}
+.edit-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  opacity: 0;
+  max-height: 0;
+  pointer-events: none;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.edit-buttons.show {
+  opacity: 1;
+  max-height: 100px;
+  pointer-events: auto;
+}
+.edit-buttons button {
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-salvar {
+  background: linear-gradient(to top, #5e96bb, var(--azul));
+  color: white;
+}
+.fileSize-error {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  color: red;
+  font-weight: 600;
+  margin-top: 60px;
+  font-size: 8px;
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.fileSize-error.show {
+  max-height: 100px;
+  opacity: 1;
+  pointer-events: auto;
 }

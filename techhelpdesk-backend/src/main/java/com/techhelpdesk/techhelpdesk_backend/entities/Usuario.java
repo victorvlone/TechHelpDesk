@@ -32,17 +32,23 @@ public class Usuario implements UserDetails {
     @GeneratedValue
     private UUID id;
 
-    @Column(name= "primeiroNome", length=100, nullable= false)
+    @Column(name = "primeiroNome", length = 100, nullable = false)
     private String primeiroNome;
 
-    @Column(name= "ultimoNome", length=100, nullable= false)
+    @Column(name = "ultimoNome", length = 100, nullable = false)
     private String ultimoNome;
 
-    @Column(name = "email", length=100, nullable=false)
+    @Column(name = "email", length = 100, nullable = false)
     private String email;
 
-    @Column(name = "senha", length=100, nullable=false)
+    @Column(name = "senha", length = 100, nullable = false)
     private String senha;
+
+    @Column(name = "foto_de_perfil", length = 255, nullable = true)
+    private String fotoDePerfil;
+
+    @Column(name = "foto_de_capa", length = 255, nullable = true)
+    private String fotoDeCapa;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipodeUsuario", nullable = false)
@@ -58,10 +64,10 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.tipodeUsuario == TipoDeUsuario.ADMIN){
+        if (this.tipodeUsuario == TipoDeUsuario.ADMIN) {
             return List.of(
-            new SimpleGrantedAuthority("ROLE_ADMIN"), 
-            new SimpleGrantedAuthority("ROLE_USER"));
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER"));
         } else {
             return List.of(new SimpleGrantedAuthority("ROLE_USER"));
         }

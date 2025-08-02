@@ -53,7 +53,7 @@ function App() {
 
       <Sidebar showSidebar={showSidebar} setFiltros={setFiltros} darkMode={darkMode} />
 
-      {usuarioLogado.tipo === "CLIENTE" && (
+      {usuarioLogado.tipodeUsuario === "CLIENTE" && (
         <NovoChamado
           showNovoChamado={showNovoChamado}
           setShowNovoChamado={setShowNovoChamado}
@@ -67,7 +67,7 @@ function App() {
           setDarkMode={setDarkMode}
           darkMode={darkMode}
         />
-        {usuarioLogado.tipo === "TECNICO" && (
+        {usuarioLogado.tipodeUsuario === "TECNICO" && (
           <>
             <ChamadoSleecionado
               chamadoClicado={chamadoClicado}
@@ -84,7 +84,7 @@ function App() {
             />
           </>
         )}
-        {usuarioLogado.tipo === "CLIENTE" && (
+        {usuarioLogado.tipodeUsuario === "CLIENTE" && (
           <ClienteChamados setShowNovoChamado={setShowNovoChamado} />
         )}
       </div>
