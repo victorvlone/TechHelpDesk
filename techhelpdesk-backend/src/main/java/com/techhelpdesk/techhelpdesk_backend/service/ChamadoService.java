@@ -25,6 +25,9 @@ public class ChamadoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private NotificacaoService notificacaoService;
+
     public Chamado novoChamado(Chamado chamado) {
         System.out.println("Salvando chamado: " + chamado);
         return chamadoRepository.save(chamado);
@@ -41,8 +44,18 @@ public class ChamadoService {
             chamadoExistente.setTecnico(tecnico);
         }
 
-        if (chamado.getStatus() == Status.CONCLUIDO) {
+        if (chamadoExistente.getStatus() == Status.CONCLUIDO) {
             chamadoExistente.setDataConclusao(LocalDateTime.now());
+            notificacaoService.criar("O chamado com ID " + chamadoExistente.getId() + " foi concluido",
+                    chamadoExistente.getTecnico());
+        } else if (chamadoExistente.getStatus() == Status.FINALIZACAO_PENDENTE) {
+            notificacaoService.criar(
+                    "O seu chamado com ID " + chamadoExistente.getId() + " aguarda confirmação de conclusão",
+                    chamadoExistente.getUsuario());
+        } else if (chamadoExistente.getStatus() == Status.EM_ANDAMENTO) {
+            notificacaoService.criar(
+                    "O técnico " + chamadoExistente.getTecnico().getPrimeiroNome() + " esta atendendo seu chamado",
+                    chamadoExistente.getUsuario());
         }
 
         return chamadoRepository.save(chamadoExistente);

@@ -4,6 +4,7 @@ import SeusChamados from "../SeusChamados/SeusChamados";
 import UserProfile from "../UserProfile/UserProfile";
 import { useTransition, animated } from "@react-spring/web";
 import UserOptions from "../UserOptions/UserOptions";
+import Notificacoes from "../Notificacoes/Notificacoes";
 
 function Header({
   setShowSidebar,
@@ -16,6 +17,7 @@ function Header({
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [showSeusChamados, setShowSeusChamados] = useState(false);
   const [showUserOptions, setShowUserOptions] = useState(false);
+  const [showNotificacoes, setShowNotificacoes] = useState(false);
   const [tecChamados, setTecChamados] = useState([]);
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
@@ -34,6 +36,13 @@ function Header({
   });
 
   const transitionUserOptions = useTransition(showUserOptions, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: { duration: 300 },
+  });
+
+  const transitionNotificacoes = useTransition(showNotificacoes, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
@@ -169,7 +178,15 @@ function Header({
             >
               <i className="fi fi-br-moon-stars header-icon"></i>
             </div>
-            <div className="header-icon-container">
+            <div
+              className="header-icon-container"
+              onClick={() => {
+                setShowNotificacoes((prev) => !prev);
+                setShowUserOptions(false);
+                setShowSeusChamados(false);
+                setShowUserProfile(false);
+              }}
+            >
               <i className="fi fi-br-bell header-icon"></i>
             </div>
             <img
@@ -184,6 +201,7 @@ function Header({
                 setShowUserOptions((prev) => !prev);
                 setShowSeusChamados(false);
                 setShowUserProfile(false);
+                setShowNotificacoes(false);
               }}
             />
           </div>
@@ -206,6 +224,11 @@ function Header({
           chamadosDoTecnico,
           setShowSeusChamados,
           darkMode,
+        })}
+
+        {renderComTransicao(transitionNotificacoes, Notificacoes, {
+          showNotificacoes,
+          setShowNotificacoes,
         })}
       </div>
     </div>
