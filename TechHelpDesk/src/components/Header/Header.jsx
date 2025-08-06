@@ -145,7 +145,7 @@ function Header({
             <div className="header-icon-container">
               <i
                 className="fi fi-br-menu-burger header-icon"
-                onClick={() => setShowSidebar((prev) => !prev)}
+                onClick={() => setShowSidebar(true)}
               ></i>
             </div>
             <div className="logo-img-container">
@@ -198,7 +198,7 @@ function Header({
               }
               alt=""
               onClick={() => {
-                setShowUserOptions((prev) => !prev);
+                setShowUserOptions((prev) => !prev);  
                 setShowSeusChamados(false);
                 setShowUserProfile(false);
                 setShowNotificacoes(false);

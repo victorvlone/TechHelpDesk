@@ -1,10 +1,30 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Sidebar.css";
 
 function Sidebar({ showSidebar, setShowSidebar, setFiltros, darkMode }) {
   const [showSituacao, setShowSituacao] = useState(false);
   const [showPrioridade, setShowPrioridade] = useState(false);
   const [showCategoria, setShowCategoria] = useState(false);
+  const sidebarRef = useRef();
+
+  useEffect(() => {
+  const clicarFora = (event) => {
+    if (
+      showSidebar && 
+      sidebarRef.current && 
+      !sidebarRef.current.contains(event.target)
+    ) {
+      setShowSidebar(false);
+    }
+  };
+
+  document.addEventListener("mousedown", clicarFora);
+  return () => {
+    document.removeEventListener("mousedown", clicarFora);
+  };
+}, [showSidebar]);
+
+
 
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
@@ -20,7 +40,7 @@ function Sidebar({ showSidebar, setShowSidebar, setFiltros, darkMode }) {
   const opcoesPrioridade = ["BAIXA", "MEDIA", "ALTA"];
 
   return (
-    <div className={`sidebar-container ${showSidebar ? "show" : ""}`}>
+    <div className={`sidebar-container ${showSidebar ? "show" : ""}`}   ref={sidebarRef}>
       <div className="sidebar-header">
         <div className="sidebar-logo">
           <img src="/assets/images/logo-icon-blue.png" alt="" />

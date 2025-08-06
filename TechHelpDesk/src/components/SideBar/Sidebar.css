@@ -1,6 +1,8 @@
 .sidebar-container {
   height: 100vh;
-  width: 350px;
+  width: 25vw;          /* <- Agora é responsivo */
+  min-width: 250px;     /* <- Nunca menor que 200px */
+  max-width: 350px;  
   background-color: white;
   position: absolute;
   left: 0;
@@ -9,6 +11,7 @@
   transform: translateX(-100%);
   box-shadow: 4px 0 7px rgba(0, 0, 0, 0.08);
   transition: transform 0.5s ease;
+  z-index: 5;
 }
 .sidebar-container.show {
   transform: translateX(0);

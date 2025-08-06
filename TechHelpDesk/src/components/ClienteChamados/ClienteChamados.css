@@ -63,6 +63,9 @@
 }
 .clienteChamados-content-header h5 {
   font-size: 17px;
+  max-width: 50%;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 .clienteChamados-content-body {
   width: 100%;
@@ -95,4 +98,27 @@
   align-items: center;
   gap: 10px;
   padding: 10px;
+}
+@media (min-width: 767px) and (max-width: 1024px) {
+  .clienteChamados-content-header h5 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+@media (max-width: 766px) {
+  .clienteChamados-content-header h5,
+  .clienteChamados-content-header p,
+  .clienteChamados-content-data p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .clienteChamados-content-data {
+    flex-direction: column;
+  }
 }

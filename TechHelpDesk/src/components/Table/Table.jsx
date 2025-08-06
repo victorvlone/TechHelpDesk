@@ -40,36 +40,6 @@ function Table({
 
   return (
     <div className="table-container">
-      <div className="table-header-container">
-        <div className="table-header">
-          <table>
-            <colgroup>
-              <col className="col-id" />
-              <col className="col-cliente" />
-              <col className="col-titulo" />
-              <col className="col-descricao" />
-              <col className="col-criacao" />
-              <col className="col-categoria" />
-              <col className="col-prioridade" />
-              <col className="col-situacao" />
-              <col className="col-conclusao" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th className="col-id">ID</th>
-                <th className="col-cliente">Cliente</th>
-                <th className="col-titulo">Titulo</th>
-                <th className="col-descricao">Descrição</th>
-                <th className="col-criacao">Criação</th>
-                <th className="col-categoria">Cate...</th>
-                <th className="col-prioridade">Prio...</th>
-                <th className="col-situacao">Status</th>
-                <th className="col-conclusao">Conclusão</th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
       <div
         className={`table-content ${
           chamadoClicado && chamadoClicado.id ? "extend" : ""
@@ -87,9 +57,22 @@ function Table({
             <col className="col-situacao" />
             <col className="col-conclusao" />
           </colgroup>
+          <thead className="table-header-container">
+            <tr className="table-header">
+              <th className="col-id">ID</th>
+              <th className="col-cliente">Cliente</th>
+              <th className="col-titulo">Titulo</th>
+              <th className="col-descricao">Descrição</th>
+              <th className="col-criacao">Criação</th>
+              <th className="col-categoria">Categoria</th>
+              <th className="col-prioridade">Prioridade</th>
+              <th className="col-situacao">Status</th>
+              <th className="col-conclusao">Conclusão</th>
+            </tr>
+          </thead>
           <tbody>
             {(chamadoPesquisado && chamadoPesquisado.id
-              ? [chamadoPesquisado] // coloca em array pra poder usar map
+              ? [chamadoPesquisado]
               : chamados
             ).map((chamado) => (
               <tr key={chamado.id} onClick={() => setChamadoClicado(chamado)}>
@@ -97,7 +80,9 @@ function Table({
                 <td className="col-cliente">
                   {chamado.usuario?.primeiroNome || "Sem nome"}
                 </td>
-                <td className="col-titulo">{chamado.titulo || "Sem título"}</td>
+                <td className="col-titulo">
+                  {chamado.titulo || "Sem título"}
+                </td>
                 <td className="col-descricao">
                   <div className="descricao-limitada">
                     {chamado.descricao || "Sem descrição"}

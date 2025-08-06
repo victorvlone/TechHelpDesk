@@ -51,7 +51,12 @@ function App() {
     <>
       <div className="background-overlay"></div>
 
-      <Sidebar showSidebar={showSidebar} setFiltros={setFiltros} darkMode={darkMode} />
+      <Sidebar
+        showSidebar={showSidebar}
+        setFiltros={setFiltros}
+        darkMode={darkMode}
+        setShowSidebar={setShowSidebar}
+      />
 
       {usuarioLogado.tipodeUsuario === "CLIENTE" && (
         <NovoChamado

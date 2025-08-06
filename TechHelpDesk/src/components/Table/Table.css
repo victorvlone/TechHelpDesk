@@ -1,13 +1,16 @@
 .table-container {
-  width: max-content;
+  width: 100%;
+  overflow-x: auto;
+  background-color: white;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   margin-top: 20px;
-  width: fit-content;
-  background-color: white;
 }
 .table-content table {
-  min-width: 100%;
+  width: 100%;
+  min-width: unset;
+  border-collapse: collapse;
+  table-layout: fixed; /* para que as colunas respeitem os widths */
 }
 table {
   border-collapse: separate;
@@ -27,13 +30,14 @@ table {
   border-radius: 10px 10px 0 0;
 }
 .table-content {
-  overflow-x: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   max-height: 700px;
-  width: 100%;
+  min-width: 996px;
   transition: max-height 0.3s ease;
 }
 .table-content.extend {
-  max-height: 450px;
+  max-height: 550px;
 }
 th {
   padding: 20px;
@@ -42,17 +46,26 @@ th {
   color: white;
   font-size: 20px;
 }
+th,
+td {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 90px;
+  word-break: break-word;
+}
 .col-descricao {
   width: 300px;
-  word-break: break-word;
-  white-space: normal;
 }
 .col-id {
   width: 100px;
 }
-.col-cliente,
+.col-cliente {
+  width: 150px;
+}
 .col-titulo {
   width: 150px;
+  max-width: 150px;
 }
 .col-criacao {
   width: 130px;
@@ -90,10 +103,6 @@ tr:hover {
 tr:hover td {
   border-color: transparent;
 }
-td:nth-child(1),
-td:nth-child(2) {
-  font-size: 18px;
-}
 td:nth-child(3) {
   font-size: 12px;
 }
@@ -107,20 +116,126 @@ td:nth-child(6) {
   font-size: 16px;
   padding: 0;
 }
-td:nth-child(9) {
-  text-overflow: ellipsis;
-}
 
 .descricao-limitada {
-  display: -webkit-box;              /* Necessário para line-clamp funcionar */
-  -webkit-box-orient: vertical;      /* Define a direção do conteúdo */
-  -webkit-line-clamp: 2;             /* Limita a 2 linhas */
-  overflow: hidden;                  /* Esconde conteúdo extra */
-  text-overflow: ellipsis;          /* Adiciona "..." */
-  white-space: normal;              /* Permite quebra de linha */
-  word-break: break-word;           /* Quebra palavras grandes */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;
+  line-clamp: 2;
+  box-orient: vertical;
+}
+@media (min-width: 767px) and (max-width: 1024px) {
+  .table-content.extend {
+    max-height: 450px;
+  }
+  th.col-conclusao {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  tr {
+    height: 20px;
+    font-weight: 600;
+  }
+  th {
+    font-size: 13px;
+  }
+  td:nth-child(1),
+  td:nth-child(2) {
+    font-size: 11px;
+  }
+  td:nth-child(3) {
+    font-size: 10px;
+  }
+  td:nth-child(4) {
+    text-align: left;
+    font-size: 10px;
+    max-height: 50px;
+    overflow: hidden;
+  }
+  td:nth-child(5),
+  td:nth-child(9) {
+    font-size: 12px;
+  }
+  td:nth-child(6) {
+    font-size: 12px;
+    padding: 0;
+  }
+  td:nth-child(7),
+  td:nth-child(8) {
+    font-size: 12px;
+  }
+  td:nth-child(9) {
+    text-overflow: ellipsis;
+  }
+  th.col-titulo,
+  td.col-titulo {
+    max-width: 90px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  th.col-descricao,
+  td.col-descricao {
+    max-width: 90px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+@media (max-width: 766px) {
+  .table-content table {
+    min-width: unset;
+    width: 100%;
+  }
 
-  /* Para navegadores futuros que suportem line-clamp sem prefixo */
-  line-clamp: 2;                     /* Sem o -webkit-, para compatibilidade futura */
-  box-orient: vertical;             /* Para referência, mesmo que não seja necessário */
+  .col-descricao,
+  .col-titulo,
+  .col-prioridade,
+  .col-categoria,
+  .col-cliente,
+  .col-situacao,
+  .col-criacao,
+  .col-conclusao,
+  .col-id {
+    width: 20px !important;
+    max-width: unset;
+
+  }
+
+  td, th {
+    font-size: 10px;
+    padding: 5px;
+  }
+  .table-content.extend {
+    max-height: 100%;
+  }
+  tr {
+    height: 20px;
+    font-weight: 600;
+  }
+  th {
+    font-size: 13px;
+  }
+  td{
+    font-size: clamp(.4rem, 1.5vw, 100rem) !important;
+  }
+  th.col-titulo,
+  td.col-titulo {
+    max-width: 90px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  th.col-descricao,
+  td.col-descricao {
+    max-width: 90px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }
