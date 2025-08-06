@@ -53,7 +53,13 @@
 .dark .edit-icon{
   color: #141d26;
 }
-
+.dark .notificacao-container{
+  background-color: #1b2936;
+  color: white;
+}
+.dark .notificacao-list-item:hover{
+  background-color: #141d26;
+}
 .container {
   width: 80%;
   margin: 0 auto;

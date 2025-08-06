@@ -43,7 +43,7 @@ function ChamadoSleecionado({ chamadoClicado, atualizarChamados }) {
       setBotaoDesativado(false);
     }
   }, [chamadoClicado]);
-  
+
   return (
     <div
       className={`chamados-container ${
@@ -83,13 +83,15 @@ function ChamadoSleecionado({ chamadoClicado, atualizarChamados }) {
             <b>Descrição:</b> {chamadoClicado.descricao}
           </p>
         </div>
-        <button
-          onClick={() => atenderChamado(chamadoClicado)}
-          disabled={botaoDesativado}
-          className={`btn-status ${botaoDesativado ? "desativado" : ""}`}
-        >
-          Atender chamado<i className="fi fi-br-add"></i>
-        </button>
+        {chamadoClicado.status !== "CONCLUIDO" && (
+          <button
+            onClick={() => atenderChamado(chamadoClicado)}
+            disabled={botaoDesativado}
+            className={`btn-status ${botaoDesativado ? "desativado" : ""}`}
+          >
+            Atender chamado<i className="fi fi-br-add"></i>
+          </button>
+        )}
       </div>
     </div>
   );
